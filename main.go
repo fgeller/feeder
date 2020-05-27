@@ -9,41 +9,147 @@ import (
 	"log"
 	"net/http"
 	"os"
-
-	"github.com/davecgh/go-spew/spew"
+	"strings"
+	"time"
 )
 
+// TODO timestamps
 // TODO email template
 
-type feed struct {
-	name    string
-	addr    string
-	content AtomFeed
+type Feed struct {
+	Title   string
+	Updated time.Time
+	Entries []*FeedEntry
 }
 
-func newFeed(name, addr string) *feed {
-	return &feed{name: name, addr: addr}
+type FeedEntry struct {
+	Title   string
+	Link    string
+	ID      string
+	Updated time.Time
+	Content string
 }
 
-func (f *feed) download() error {
-	resp, err := http.Get(f.addr)
+type RSSFeed struct { // v2
+	XMLName       xml.Name  `xml:"rss"`
+	Title         string    `xml:"channel>title"`
+	Link          string    `xml:"channel>link"`
+	LastBuildDate string    `xml:"channel>lastBuildDate"`
+	Items         []RSSItem `xml:"channel>item"`
+}
+
+type RSSItem struct {
+	Title       string `xml:"title"`
+	Link        string `xml:"link"`
+	Description string `xml:"description"`
+	GUID        string `xml:"guid"`
+	PubDate     string `xml:"pubDate"`
+}
+
+func (f *RSSFeed) Feed() *Feed {
+	ft, err := time.Parse(time.RFC1123Z, f.LastBuildDate)
 	if err != nil {
-		return fmt.Errorf("failed to request feed %v err=%w", f.name, err)
+		log.Fatalf("time parse str=%#v err=%v", f.LastBuildDate, err)
+	}
+	cf := &Feed{
+		Title:   f.Title,
+		Updated: ft,
+		Entries: []*FeedEntry{},
+	}
+	for _, e := range f.Items {
+		et, err := time.Parse(time.RFC1123Z, e.PubDate)
+		if err != nil {
+			log.Fatalf("time parse str=%#v err=%v", e.PubDate, err)
+		}
+		ce := &FeedEntry{
+			Title:   e.Title,
+			Link:    e.Link,
+			ID:      e.GUID,
+			Updated: et,
+			Content: e.Description,
+		}
+		cf.Entries = append(cf.Entries, ce)
+	}
+	return cf
+}
+
+type AtomFeed struct {
+	XMLName xml.Name     `xml:"feed"`
+	Title   string       `xml:"title"`
+	Link    AtomLink     `xml:"link"`
+	Updated time.Time    `xml:"updated"`
+	ID      string       `xml:"id"`
+	Entries []*AtomEntry `xml:"entry"`
+}
+
+func (f *AtomFeed) String() string {
+	return fmt.Sprintf("<%s updated=%s entries=%v>", f.Title, f.Updated, len(f.Entries))
+}
+
+func (f *AtomFeed) Feed() *Feed {
+	cf := &Feed{
+		Title:   f.Title,
+		Updated: f.Updated,
+		Entries: []*FeedEntry{},
+	}
+	for _, e := range f.Entries {
+		cf.Entries = append(cf.Entries, &FeedEntry{
+			Title:   e.Title,
+			Link:    e.Link.HREF,
+			ID:      e.ID,
+			Updated: e.Updated,
+			Content: e.Content,
+		})
+	}
+
+	return cf
+}
+
+type AtomLink struct {
+	HREF string `xml:"href,attr"`
+}
+
+type AtomEntry struct {
+	Title   string    `xml:"title"`
+	Link    AtomLink  `xml:"link"`
+	Updated time.Time `xml:"updated"`
+	ID      string    `xml:"id"`
+	Content string    `xml:"content"`
+}
+
+func downloadFeed(url string) (*Feed, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, fmt.Errorf("failed to request feed url=%s err=%w", url, err)
 	}
 
 	byt, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("failed to read body contents for feed %v err=%w", f.name, err)
+		return nil, fmt.Errorf("failed to read body contents for feed url=%s err=%w", url, err)
 	}
 	defer resp.Body.Close()
 
-	err = xml.Unmarshal(byt, &f.content)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal content for feed %v err=%w", f.name, err)
+	fmt.Printf("header:\n%s\n", byt[:512])
+
+	isAtom := strings.Contains(string(byt[:46]), "<feed")
+
+	if isAtom {
+		var content AtomFeed
+		err = xml.Unmarshal(byt, &content)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal atom content for feed url=%s err=%w", url, err)
+		}
+		return (&content).Feed(), nil
+	} else {
+		var content RSSFeed
+		err = xml.Unmarshal(byt, &content)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal rss content for feed url=%s err=%w", url, err)
+		}
+		return (&content).Feed(), nil
 	}
 
-	log.Printf("downloaded %v\n", f.content)
-	return nil
+	return nil, nil
 }
 
 func readFlags() (string, error) {
@@ -109,6 +215,35 @@ func main() {
 	var cfg *Config
 
 	cfg, err = readConfig()
-	fmt.Println(err)
-	spew.Dump(cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fs := []*Feed{}
+	for _, fc := range cfg.Feeds {
+		f, err := downloadFeed(fc.URL)
+		if err != nil {
+			log.Printf("dl err=%v", err)
+		} else {
+			fs = append(fs, f)
+		}
+	}
+	log.Printf("downloaded %v feeds", len(fs))
+
+	emailBody := makeEmailBody(fs)
+	fmt.Printf("email body:\n%s\n", emailBody)
+}
+
+func makeEmailBody(feeds []*Feed) string {
+	result := ""
+	for _, f := range feeds {
+		result += fmt.Sprintf("<h1>%s</h1>\n", f.Title)
+		result += fmt.Sprintf("<h2>%s</h2>\n", f.Entries[0].Title)
+		max := len(f.Entries[0].Content)
+		if max > 128 {
+			max = 128
+		}
+		result += f.Entries[0].Content[:max]
+	}
+	return result
 }
