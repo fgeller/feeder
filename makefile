@@ -7,4 +7,4 @@ build: clean
 	go build -o ${ARTIFACT} .
 
 run: build
-	./${ARTIFACT} -config ~/.config/feeder/config.json
+	./${ARTIFACT} -config ~/.config/feeder/config.yml
