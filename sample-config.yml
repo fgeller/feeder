@@ -1,0 +1,15 @@
+timestamp-file: '/Users/fgeller/.config/feeder/timestamps.yml'
+email-template-file: '/Users/fgeller/.config/feeder/email.tmpl'
+email:
+  from: example@gmail.com
+  smtp:
+    host: smtp.gmail.com
+    port: 587
+    user: example@gmail.com
+    pass: passwort
+
+feeds:
+  - name: 'irreal'
+    url: https://irreal.org/blog/?feed=rss2
+  - name: The Go Blog
+    url: https://blog.golang.org/feed.atom
