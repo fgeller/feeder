@@ -1,16 +1,23 @@
-# feeder
+# feeder 📫 
 
-Aggregates news feeds updates and send them via email.
+Aggregates new feeds updates and sends them to your email inbox.
 
 - Supports Atom and RSS feeds.
-- Golang template to format email update 
-- Update timestamps persisted to YAML file
+- Uses Golang [html/template](https://golang.org/pkg/html/template/#pkg-overview) to customize email body.
+- Update timestamps persisted to YAML file.
+
+## Usage
+
+- Install via `go install github.com/fgeller/feeder` or download a [release](https://github.com/fgeller/feeder/releases).
+- Create [configuration file](https://github.com/fgeller/feeder#configuration), customizing email settings and feeds.
+- Run via `./feeder -config your-config.yml`
+- Set up recurring execution, e.g. via `crontab -e`
 
 ## Configuration
 
 - `timestamp-file` is required to persist what updates have been seen.
 
-- `email-template-file` is a optional Golang template to format the sent email.
+- `email-template-file` is an optional Golang [html/template](https://golang.org/pkg/html/template/#pkg-overview) to format the sent email.
 
 - `email` contains the configuration for sending emails. The `from` address will
   also be the `to` address and the `smtp` object allows for standard smtp host
