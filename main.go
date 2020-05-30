@@ -18,6 +18,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// Feed represents a downloaded news feed
 type Feed struct {
 	Title   string
 	ID      string
@@ -26,6 +27,7 @@ type Feed struct {
 	Entries []*FeedEntry
 }
 
+// FeedEntry represents a a downloaded news feed entry
 type FeedEntry struct {
 	Title   string
 	Link    string
@@ -127,7 +129,7 @@ func (f *AtomFeed) Feed() *Feed {
 	return cf
 }
 
-// To unmarshal Atom and Plain links
+// Link enables us to unmarshal Atom and plain link tags
 type Link struct {
 	XMLName xml.Name `xml:"link"`
 	HRef    string
@@ -374,6 +376,7 @@ func writeTimestamps(fn string, ts map[string]time.Time) error {
 	return nil
 }
 
+// FormatTime prints a time with layout "2006-01-02 15:04 MST"
 func FormatTime(t time.Time) string {
 	return t.Format("2006-01-02 15:04 MST")
 }
