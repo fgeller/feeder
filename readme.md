@@ -1,6 +1,6 @@
 # feeder 📫 
 
-Aggregates new feeds updates and sends them to your email inbox.
+Aggregates news feed updates and sends them to your email inbox.
 
 - Supports Atom and RSS feeds.
 - Uses Golang [html/template](https://golang.org/pkg/html/template/#pkg-overview) to customize email body.
