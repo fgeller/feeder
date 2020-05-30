@@ -18,8 +18,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// TODO template from file
-
 type Feed struct {
 	Title   string
 	ID      string
@@ -222,9 +220,10 @@ func readFlags() (string, error) {
 }
 
 type Config struct {
-	TimestampFile string       `yaml:"timestamp-file"`
-	Feeds         []ConfigFeed `yaml:"feeds"`
-	Email         ConfigEmail  `yaml:"email"`
+	TimestampFile     string       `yaml:"timestamp-file"`
+	EmailTemplateFile string       `yaml:"email-template-file"`
+	Feeds             []ConfigFeed `yaml:"feeds"`
+	Email             ConfigEmail  `yaml:"email"`
 }
 
 type ConfigEmail struct {
@@ -379,8 +378,7 @@ func FormatTime(t time.Time) string {
 	return t.Format("2006-01-02 15:04 MST")
 }
 
-func makeEmailBody(feeds []*Feed) (string, error) {
-	mu := `<h1>Feeder Update</h1>
+var defaultEmailTemplate = `
 {{ range .}}
 <h1 style="background:#f5f5f5;padding:0.5rem;border-radius:3px;"><a href="{{ .Link }}" style="text-decoration:none;">{{ .Title }}</a></h1>
 {{ range .Entries }}
@@ -391,8 +389,23 @@ func makeEmailBody(feeds []*Feed) (string, error) {
 {{ end }}
 {{ end }}
 `
+
+func readEmailTemplate(fn string) (string, error) {
+	if fn == "" {
+		return defaultEmailTemplate, nil
+	}
+
+	bt, err := ioutil.ReadFile(fn)
+	if err != nil {
+		return "", fmt.Errorf("failed to read email template file %#v err=%w", fn, err)
+	}
+
+	return string(bt), nil
+}
+
+func makeEmailBody(feeds []*Feed, emailTemplate string) (string, error) {
 	fs := template.FuncMap{"FormatTime": FormatTime}
-	tmpl, err := template.New("email").Funcs(fs).Parse(mu)
+	tmpl, err := template.New("email").Funcs(fs).Parse(emailTemplate)
 	if err != nil {
 		return "", fmt.Errorf("failed to parse template err=%w", err)
 	}
@@ -419,6 +432,7 @@ func main() {
 	var cfg *Config
 	var ts map[string]time.Time
 	var fs, nd []*Feed
+	var et string
 
 	cfg, err = readConfig()
 	failOnErr(err)
@@ -427,6 +441,9 @@ func main() {
 	ts, err = readTimestamps(cfg.TimestampFile)
 	failOnErr(err)
 	log.Printf("read timestamps from %#v\n", cfg.TimestampFile)
+
+	et, err = readEmailTemplate(cfg.EmailTemplateFile)
+	failOnErr(err)
 
 	fs, err = downloadFeeds(cfg.Feeds)
 	failOnErr(err)
@@ -439,7 +456,7 @@ func main() {
 	}
 	log.Printf("found %v new entries\n", countEntries(nd))
 
-	emailBody, err := makeEmailBody(nd)
+	emailBody, err := makeEmailBody(nd, et)
 	failOnErr(err)
 
 	err = sendEmail(cfg.Email, emailBody)
