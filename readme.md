@@ -44,3 +44,8 @@ feeds:
   - name: The Go Blog
     url: https://blog.golang.org/feed.atom
 ```
+
+## Alternatives
+
+- [blogtrottr](https://blogtrottr.com)
+- [mailbrew](https://mailbrew.com/)
