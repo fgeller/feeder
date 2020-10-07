@@ -184,7 +184,7 @@ func downloadFeed(url string) (*Feed, error) {
 	}
 	defer resp.Body.Close()
 
-	isAtom := strings.Contains(string(byt[:46]), "<feed")
+	isAtom := strings.Contains(string(byt[:128]), "<feed")
 
 	if isAtom {
 		var content AtomFeed
