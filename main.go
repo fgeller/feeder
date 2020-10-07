@@ -265,6 +265,18 @@ func readConfig() (*Config, error) {
 
 func failOnErr(err error) {
 	if err != nil {
+		cfg, nerr := readConfig()
+		if nerr == nil {
+			cf := cfg.Email
+			m := gomail.NewMessage()
+			m.SetHeader("From", cf.From)
+			m.SetHeader("To", cf.From)
+			m.SetHeader("Subject", "feeder failure")
+			m.SetBody("text/plain", err.Error())
+
+			d := gomail.NewDialer(cf.SMTP.Host, cf.SMTP.Port, cf.SMTP.User, cf.SMTP.Pass)
+			log.Printf("tried to send failure email err=%v", d.DialAndSend(m))
+		}
 		log.Fatal(err)
 	}
 }
