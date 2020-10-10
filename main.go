@@ -171,7 +171,7 @@ type AtomEntry struct {
 	Content string    `xml:"content"`
 }
 
-func downloadFeed(url string) (*Feed, error) {
+func downloadFeed(url string) ([]byte, error) {
 	log.Printf("downloading feed %#v\n", url)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -184,23 +184,30 @@ func downloadFeed(url string) (*Feed, error) {
 	}
 	defer resp.Body.Close()
 
-	isAtom := strings.Contains(string(byt[:128]), "<feed")
+	return byt, nil
+}
 
-	if isAtom {
-		var content AtomFeed
-		err = xml.Unmarshal(byt, &content)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal atom content for feed url=%s err=%w", url, err)
-		}
-		return (&content).Feed(), nil
+func unmarshal(byt []byte) (*Feed, error) {
+	var err error
+	var atom AtomFeed
+	var rss RSSFeed
+
+	err = xml.Unmarshal(byt, &atom)
+	if err == nil {
+		return (&atom).Feed(), nil
 	}
 
-	var content RSSFeed
-	err = xml.Unmarshal(byt, &content)
-	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal rss content for feed url=%s err=%w", url, err)
+	err = xml.Unmarshal(byt, &rss)
+	if err == nil {
+		return (&rss).Feed(), nil
 	}
-	return (&content).Feed(), nil
+
+	if strings.Contains(err.Error(), "unexpected EOF") {
+		log.Printf("ignoring EOF err=%s", err)
+		return nil, nil
+	}
+
+	return nil, err
 }
 
 func readFlags() (string, error) {
@@ -298,12 +305,18 @@ func downloadFeeds(cs []ConfigFeed) ([]*Feed, error) {
 		if fc.Disabled {
 			continue
 		}
-		f, err := downloadFeed(fc.URL)
+
+		rf, err := downloadFeed(fc.URL)
 		if err != nil {
-			return fs, fmt.Errorf("failed to download feed err=%w", err)
-		} else {
-			fs = append(fs, f)
+			return fs, fmt.Errorf("failed to download feed url=%s err=%w", fc.URL, err)
 		}
+
+		uf, err := unmarshal(rf)
+		if err != nil {
+			return fs, fmt.Errorf("failed to unmarshal feed name=%s err=%w", fc.Name, err)
+		}
+
+		fs = append(fs, uf)
 	}
 	return fs, nil
 }
@@ -462,7 +475,7 @@ func main() {
 
 	fs, err = downloadFeeds(cfg.Feeds)
 	failOnErr(err)
-	log.Printf("donwloaded %v feeds\n", len(fs))
+	log.Printf("downloaded %v feeds\n", len(fs))
 
 	nd = pickNewData(fs, ts)
 	if len(nd) == 0 {
