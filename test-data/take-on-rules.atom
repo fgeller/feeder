@@ -1,0 +1,21 @@
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Take on Rules</title>
+  <link rel="self" href="https://takeonrules.com/index.atom" hreflang="en-us"/>
+  <link href="https://takeonrules.com/" hreflang="en-us"/>
+  <updated>2020-10-30T21:54:51-0400</updated>
+  <author><name>Jeremy Friesen</name><email>jeremy.n.friesen@gmail.com</email>
+    <uri>https://takeonrules.com/</uri>
+  </author>
+  <id>https://takeonrules.com/</id>
+  <entry>
+    <title type="html"><![CDATA[Reducing Duplication in my Emacs Config]]></title>
+    <link rel="alternate" href="https://takeonrules.com/2020/10/30/reducing-duplication-in-my-emacs-config/"/>
+    <id>https://takeonrules.com/2020/10/30/reducing-duplication-in-my-emacs-config/</id>
+    <author><name>Jeremy Friesen</name><email>jeremy.n.friesen@gmail.com</email>
+    <uri>https://takeonrules.com/</uri>
+    </author><category term="emacs" label="emacs"/><category term="org-mode" label="org mode"/><category term="programming" label="programming"/>
+    <content type="html"><![CDATA[<p>Earlier this week]]></content>
+    <published>2020-10-30T21:54:51-0400</published>
+    <updated>2020-10-30T21:54:51-0400</updated>
+  </entry>
+</feed>

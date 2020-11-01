@@ -103,7 +103,7 @@ type AtomFeed struct {
 	XMLName xml.Name     `xml:"feed"`
 	Title   string       `xml:"title"`
 	Link    Link         `xml:"link"`
-	Updated time.Time    `xml:"updated"`
+	Updated xmlTime      `xml:"updated"`
 	ID      string       `xml:"id"`
 	Entries []*AtomEntry `xml:"entry"`
 }
@@ -113,7 +113,7 @@ func (f *AtomFeed) Feed() *Feed {
 		ID:      f.ID,
 		Title:   f.Title,
 		Link:    f.Link.HRef,
-		Updated: f.Updated,
+		Updated: f.Updated.Time,
 		Entries: []*FeedEntry{},
 	}
 	for _, e := range f.Entries {
@@ -121,12 +121,41 @@ func (f *AtomFeed) Feed() *Feed {
 			Title:   e.Title,
 			Link:    e.Link.HRef,
 			ID:      e.ID,
-			Updated: e.Updated,
+			Updated: e.Updated.Time,
 			Content: template.HTML(e.Content),
 		})
 	}
 
 	return cf
+}
+
+type xmlTime struct {
+	time.Time
+}
+
+func (t *xmlTime) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
+	var v string
+	err := d.DecodeElement(&v, &el)
+	if err != nil {
+		return err
+	}
+
+	pt, err := time.Parse(time.RFC3339, v)
+	if err == nil {
+		t.Time = pt
+		return nil
+	}
+	if err != nil && !strings.Contains(err.Error(), "cannot parse") {
+		return err
+	}
+
+	pt, err = time.Parse("2006-01-02T15:04:05-0700", v)
+	if err != nil {
+		return err
+	}
+
+	t.Time = pt
+	return nil
 }
 
 // Link enables us to unmarshal Atom and plain link tags
@@ -164,11 +193,11 @@ func (l *Link) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
 }
 
 type AtomEntry struct {
-	Title   string    `xml:"title"`
-	Link    Link      `xml:"link"`
-	Updated time.Time `xml:"updated"`
-	ID      string    `xml:"id"`
-	Content string    `xml:"content"`
+	Title   string  `xml:"title"`
+	Link    Link    `xml:"link"`
+	Updated xmlTime `xml:"updated"`
+	ID      string  `xml:"id"`
+	Content string  `xml:"content"`
 }
 
 func downloadFeed(url string) ([]byte, error) {
@@ -195,6 +224,8 @@ func unmarshal(byt []byte) (*Feed, error) {
 	err = xml.Unmarshal(byt, &atom)
 	if err == nil {
 		return (&atom).Feed(), nil
+	} else {
+		log.Printf("failed to unmarshal as atom err=%v", err)
 	}
 
 	err = xml.Unmarshal(byt, &rss)
