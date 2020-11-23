@@ -62,6 +62,30 @@ type RSSItem struct {
 	PubDate     string `xml:"pubDate"`
 }
 
+func parseTime(raw string) (t time.Time, err error) {
+	t, err = time.Parse(time.RFC1123Z, raw)
+	if err != nil {
+		return t, nil
+	}
+
+	t, err = time.Parse(time.RFC1123, raw)
+	if err != nil {
+		return t, nil
+	}
+
+	t, err = time.Parse(time.RFC3339, raw)
+	if err != nil {
+		return t, nil
+	}
+
+	t, err = time.Parse("2006-01-02T15:04:05-0700", raw)
+	if err != nil {
+		return t, nil
+	}
+
+	return t, fmt.Errorf("failed to parse time string %#v", raw)
+}
+
 func (f *RSSFeed) Feed() *Feed {
 	if len(f.Links) == 0 {
 		log.Fatalf("missing link on feed %#v", f.Title)
@@ -76,14 +100,14 @@ func (f *RSSFeed) Feed() *Feed {
 
 	var err error
 	if f.LastBuildDate != "" {
-		cf.Updated, err = time.Parse(time.RFC1123Z, f.LastBuildDate)
+		cf.Updated, err = parseTime(f.LastBuildDate)
 		if err != nil {
 			log.Fatalf("time parse feed title=%v str=%#v err=%v", f.Title, f.LastBuildDate, err)
 		}
 	}
 
 	for _, e := range f.Items {
-		et, err := time.Parse(time.RFC1123Z, e.PubDate)
+		et, err := parseTime(e.PubDate)
 		if err != nil {
 			log.Fatalf("time parse str=%#v err=%v", e.PubDate, err)
 		}
@@ -140,21 +164,11 @@ func (t *xmlTime) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
 		return err
 	}
 
-	pt, err := time.Parse(time.RFC3339, v)
-	if err == nil {
-		t.Time = pt
-		return nil
-	}
-	if err != nil && !strings.Contains(err.Error(), "cannot parse") {
-		return err
-	}
-
-	pt, err = time.Parse("2006-01-02T15:04:05-0700", v)
+	t.Time, err = parseTime(v)
 	if err != nil {
 		return err
 	}
 
-	t.Time = pt
 	return nil
 }
 
