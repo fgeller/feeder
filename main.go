@@ -25,6 +25,8 @@ type Feed struct {
 	Link    string
 	Updated time.Time
 	Entries []*FeedEntry
+
+	Failure error
 }
 
 // FeedEntry represents a a downloaded news feed entry
@@ -342,8 +344,9 @@ func sendEmail(cfg ConfigEmail, body string) error {
 	return d.DialAndSend(m)
 }
 
-func downloadFeeds(cs []ConfigFeed) ([]*Feed, error) {
-	fs := []*Feed{}
+func downloadFeeds(cs []ConfigFeed) ([]*Feed, []*Feed) {
+	succs := []*Feed{}
+	fails := []*Feed{}
 	for _, fc := range cs {
 		if fc.Disabled {
 			continue
@@ -351,17 +354,19 @@ func downloadFeeds(cs []ConfigFeed) ([]*Feed, error) {
 
 		rf, err := downloadFeed(fc.URL)
 		if err != nil {
-			return fs, fmt.Errorf("failed to download feed url=%s err=%w", fc.URL, err)
+			fails = append(fails, &Feed{Title: fc.Name, Link: fc.URL, Failure: err})
+			continue
 		}
 
 		uf, err := unmarshal(rf)
 		if err != nil {
-			return fs, fmt.Errorf("failed to unmarshal feed name=%s err=%w", fc.Name, err)
+			fails = append(fails, &Feed{Title: fc.Name, Link: fc.URL, Failure: err})
+			continue
 		}
 
-		fs = append(fs, uf)
+		succs = append(succs, uf)
 	}
-	return fs, nil
+	return succs, fails
 }
 
 func pickNewData(fs []*Feed, ts map[string]time.Time) []*Feed {
@@ -387,6 +392,9 @@ func pickNewData(fs []*Feed, ts map[string]time.Time) []*Feed {
 
 func updateTimestamps(ts map[string]time.Time, nd []*Feed) {
 	for _, f := range nd {
+		if f.Failure != nil {
+			continue
+		}
 		_, ok := ts[f.ID]
 		if !ok {
 			ts[f.ID] = f.Entries[0].Updated
@@ -450,14 +458,23 @@ func FormatTime(t time.Time) string {
 }
 
 var defaultEmailTemplate = `
-{{ range .}}
-<h1 style="background:#f5f5f5;padding:0.5rem;border-radius:3px;"><a href="{{ .Link }}" style="text-decoration:none;">{{ .Title }}</a></h1>
-{{ range .Entries }}
-<h2 style="background:#f5f5f5;padding:0.5rem;border-radius:3px;"><a href="{{ .Link }}" style="text-decoration:none;">{{ .Title }}</a><span style="font-size:0.75rem;margin-left:1rem;">{{ FormatTime .Updated }}</span></h2>
-<div>
-  {{ .Content }}
-</div>
+{{ range .Successes}}
+<h1 style="border: 1px solid #acb0bf; border-radius: 3px; background: #f4f4f4; padding: 1em; margin: 1.6em 0;"><a href="{{ .Link }}" style="text-decoration: none; color: RoyalBlue; ">{{ .Title }}</a></h1>
+  {{ range .Entries }}
+  <h2 style="border: 1px solid #acb0bf; border-radius: 3px; background: #f4f4f4; padding: 1em; margin: 1.6em 0;"><a href="{{ .Link }}" style="text-decoration: none; color: RoyalBlue; ">{{ .Title }}</a><span style="font-size:0.75rem;margin-left:1rem;">{{ FormatTime .Updated }}</span></h2>
+  <div>
+    {{ .Content }}
+  </div>
+  {{ end }}
 {{ end }}
+
+<br />
+<hr />
+<br />
+
+{{ range .Failures}}
+<h1 style="border: 1px solid #acb0bf; border-radius: 3px; background: #f4f4f4; padding: 1em; margin: 1.6em 0;"><a href="{{ .Link }}" style="text-decoration: none; color: RoyalBlue; ">{{ .Title }}</a></h1>
+Failed to process feed: {{ .Failure }}
 {{ end }}
 `
 
@@ -474,7 +491,12 @@ func readEmailTemplate(fn string) (string, error) {
 	return string(bt), nil
 }
 
-func makeEmailBody(feeds []*Feed, emailTemplate string) (string, error) {
+type templateData struct {
+	Successes []*Feed
+	Failures  []*Feed
+}
+
+func makeEmailBody(succs []*Feed, fails []*Feed, emailTemplate string) (string, error) {
 	fs := template.FuncMap{"FormatTime": FormatTime}
 	tmpl, err := template.New("email").Funcs(fs).Parse(emailTemplate)
 	if err != nil {
@@ -482,7 +504,7 @@ func makeEmailBody(feeds []*Feed, emailTemplate string) (string, error) {
 	}
 
 	var buf bytes.Buffer
-	err = tmpl.Execute(&buf, feeds)
+	err = tmpl.Execute(&buf, &templateData{succs, fails})
 	if err != nil {
 		return "", fmt.Errorf("failed to execute template err=%w", err)
 	}
@@ -502,7 +524,7 @@ func main() {
 	var err error
 	var cfg *Config
 	var ts map[string]time.Time
-	var fs, nd []*Feed
+	var succs, fails, nd []*Feed
 	var et string
 
 	cfg, err = readConfig()
@@ -516,18 +538,17 @@ func main() {
 	et, err = readEmailTemplate(cfg.EmailTemplateFile)
 	failOnErr(err)
 
-	fs, err = downloadFeeds(cfg.Feeds)
-	failOnErr(err)
-	log.Printf("downloaded %v feeds\n", len(fs))
+	succs, fails = downloadFeeds(cfg.Feeds)
+	log.Printf("downloaded %v feeds successfully, %v failures\n", len(succs), len(fails))
 
-	nd = pickNewData(fs, ts)
-	if len(nd) == 0 {
+	nd = pickNewData(succs, ts)
+	if len(nd) == 0 && len(fails) == 0 {
 		log.Printf("found no new entries")
 		return
 	}
 	log.Printf("found %v new entries\n", countEntries(nd))
 
-	emailBody, err := makeEmailBody(nd, et)
+	emailBody, err := makeEmailBody(nd, fails, et)
 	failOnErr(err)
 
 	err = sendEmail(cfg.Email, emailBody)
