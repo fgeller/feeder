@@ -238,8 +238,6 @@ func unmarshal(byt []byte) (*Feed, error) {
 	err = xml.Unmarshal(byt, &atom)
 	if err == nil {
 		return (&atom).Feed(), nil
-	} else {
-		log.Printf("failed to unmarshal as atom err=%v", err)
 	}
 
 	err = xml.Unmarshal(byt, &rss)
