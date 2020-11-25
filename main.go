@@ -64,22 +64,22 @@ type RSSItem struct {
 
 func parseTime(raw string) (t time.Time, err error) {
 	t, err = time.Parse(time.RFC1123Z, raw)
-	if err != nil {
+	if err == nil {
 		return t, nil
 	}
 
 	t, err = time.Parse(time.RFC1123, raw)
-	if err != nil {
+	if err == nil {
 		return t, nil
 	}
 
 	t, err = time.Parse(time.RFC3339, raw)
-	if err != nil {
+	if err == nil {
 		return t, nil
 	}
 
 	t, err = time.Parse("2006-01-02T15:04:05-0700", raw)
-	if err != nil {
+	if err == nil {
 		return t, nil
 	}
 
