@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0">
+  <channel>
+    <title>iso-8859-1 feed</title>
+    <link>https://example.com/feed.rss</link>
+    <description>The latest in weird encodings.</description>
+    <lastBuildDate>Wed, 25 Nov 2020 21:26:52 GMT</lastBuildDate>
+    <generator>PyRSS2Gen-1.1.0</generator>
+    <item>
+      <title>here's a post</title>
+      <link>https://example.com/1</link>
+      <pubDate>2020-11-23T12:00:00-0200</pubDate>
+    </item>
+  </channel>
+</rss>
