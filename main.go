@@ -5,7 +5,6 @@ import (
 	"encoding/xml"
 	"flag"
 	"fmt"
-	"golang.org/x/net/html/charset"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -14,6 +13,8 @@ import (
 	"os"
 	"strings"
 	"time"
+
+	"golang.org/x/net/html/charset"
 
 	"gopkg.in/gomail.v2"
 	"gopkg.in/yaml.v2"
@@ -294,10 +295,10 @@ func readFlags() (string, error) {
 }
 
 type Config struct {
-	TimestampFile     string       `yaml:"timestamp-file"`
-	EmailTemplateFile string       `yaml:"email-template-file"`
-	Feeds             []ConfigFeed `yaml:"feeds"`
-	Email             ConfigEmail  `yaml:"email"`
+	TimestampFile     string      `yaml:"timestamp-file"`
+	EmailTemplateFile string      `yaml:"email-template-file"`
+	FeedsFile         string      `yaml:"feeds-file"`
+	Email             ConfigEmail `yaml:"email"`
 }
 
 type ConfigEmail struct {
@@ -335,6 +336,18 @@ func readConfig() (*Config, error) {
 	return &cf, err
 }
 
+func readFeedsConfig(fp string) ([]*ConfigFeed, error) {
+	bt, err := ioutil.ReadFile(fp)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read feeds config file: %w", err)
+	}
+
+	var fs []*ConfigFeed
+	err = yaml.Unmarshal(bt, &fs)
+
+	return fs, err
+}
+
 func failOnErr(err error) {
 	if err != nil {
 		cfg, nerr := readConfig()
@@ -364,7 +377,7 @@ func sendEmail(cfg ConfigEmail, body string) error {
 	return d.DialAndSend(m)
 }
 
-func downloadFeeds(cs []ConfigFeed) ([]*Feed, []*Feed) {
+func downloadFeeds(cs []*ConfigFeed) ([]*Feed, []*Feed) {
 	succs := []*Feed{}
 	fails := []*Feed{}
 	for _, fc := range cs {
@@ -543,6 +556,7 @@ func countEntries(fs []*Feed) int {
 func main() {
 	var err error
 	var cfg *Config
+	var fs []*ConfigFeed
 	var ts map[string]time.Time
 	var succs, fails, nd []*Feed
 	var et string
@@ -558,7 +572,10 @@ func main() {
 	et, err = readEmailTemplate(cfg.EmailTemplateFile)
 	failOnErr(err)
 
-	succs, fails = downloadFeeds(cfg.Feeds)
+	fs, err = readFeedsConfig(cfg.FeedsFile)
+	failOnErr(err)
+
+	succs, fails = downloadFeeds(fs)
 	log.Printf("downloaded %v feeds successfully, %v failures\n", len(succs), len(fails))
 
 	nd = pickNewData(succs, ts)
