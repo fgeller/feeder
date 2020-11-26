@@ -18,6 +18,9 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// UserAgent to be used in http requests
+const UserAgent = "feeder"
+
 // Feed represents a downloaded news feed
 type Feed struct {
 	Title   string
@@ -218,7 +221,13 @@ type AtomEntry struct {
 
 func downloadFeed(url string) ([]byte, error) {
 	log.Printf("downloading feed %#v\n", url)
-	resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request for feed url=%s err=%w", url, err)
+	}
+	req.Header.Add("User-Agent", UserAgent)
+	client := http.Client{}
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to request feed url=%s err=%w", url, err)
 	}
