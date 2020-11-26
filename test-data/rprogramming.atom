@@ -1,0 +1,311 @@
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <category term="programming" label="r/programming"/>
+  <updated>2020-11-26T08:20:38+00:00</updated>
+  <icon>https://www.redditstatic.com/icon.png/</icon>
+  <id>/r/programming/.rss</id>
+  <link rel="self" href="https://www.reddit.com/r/programming/.rss" type="application/atom+xml"/>
+  <link rel="alternate" href="https://www.reddit.com/r/programming/" type="text/html"/>
+  <logo>https://b.thumbs.redditmedia.com/2rTE46grzsr-Ll3Q.png</logo>
+  <subtitle>Computer Programming</subtitle>
+  <title>programming</title>
+  <entry>
+    <author>
+      <name>/u/rxsel</name>
+      <uri>https://www.reddit.com/user/rxsel</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/rxsel"&gt; /u/rxsel &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://github.com/isaacs/github/issues/66#issuecomment-733446758"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k16g2e/dark_mode_coming_to_github_after_7_years/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k16g2e</id>
+    <link href="https://www.reddit.com/r/programming/comments/k16g2e/dark_mode_coming_to_github_after_7_years/"/>
+    <updated>2020-11-26T02:22:33+00:00</updated>
+    <title>Dark Mode Coming to GitHub After 7 Years</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/alexeyr</name>
+      <uri>https://www.reddit.com/user/alexeyr</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/alexeyr"&gt; /u/alexeyr &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://glaubercosta-11125.medium.com/modern-storage-is-plenty-fast-it-is-the-apis-that-are-bad-6a68319fbc1a"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0yyk7/modern_storage_is_plenty_fast_it_is_the_apis_that/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0yyk7</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0yyk7/modern_storage_is_plenty_fast_it_is_the_apis_that/"/>
+    <updated>2020-11-25T19:26:35+00:00</updated>
+    <title>Modern storage is plenty fast. It is the APIs that are bad.</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/SliceOf314</name>
+      <uri>https://www.reddit.com/user/SliceOf314</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/SliceOf314"&gt; /u/SliceOf314 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://docs.google.com/document/d/1hKdqwFOfqPDgon-USFzZYsKWMgbHpAyJiFnjYQ7gVdA/edit"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0tbcc/we_rewrote_everything_in_hotlang_and_our_startup/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0tbcc</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0tbcc/we_rewrote_everything_in_hotlang_and_our_startup/"/>
+    <updated>2020-11-25T14:39:42+00:00</updated>
+    <title>We Rewrote Everything in $HOTLANG, and our Startup Still Failed</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/kislayverma</name>
+      <uri>https://www.reddit.com/user/kislayverma</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/kislayverma"&gt; /u/kislayverma &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://kislayverma.com/organizations/managing-developer-identities-in-autonomous-teams/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0onv2/love_the_problem_not_the_solution/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0onv2</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0onv2/love_the_problem_not_the_solution/"/>
+    <updated>2020-11-25T08:55:32+00:00</updated>
+    <title>Love the problem, not the solution</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/preslavrachev</name>
+      <uri>https://www.reddit.com/user/preslavrachev</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/preslavrachev"&gt; /u/preslavrachev &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://www.reddit.com/gallery/jznwwi"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0ozt5/a_few_generative_art_sketches_i_created_using_go/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0ozt5</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0ozt5/a_few_generative_art_sketches_i_created_using_go/"/>
+    <updated>2020-11-25T09:22:37+00:00</updated>
+    <title>A few generative art sketches I created using Go.</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/RobertVandenberg</name>
+      <uri>https://www.reddit.com/user/RobertVandenberg</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/RobertVandenberg"&gt; /u/RobertVandenberg &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://arvind.io/posts/the-hackathon-circlejerk/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k15vg5/the_hackathon_circlejerk/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k15vg5</id>
+    <link href="https://www.reddit.com/r/programming/comments/k15vg5/the_hackathon_circlejerk/"/>
+    <updated>2020-11-26T01:46:04+00:00</updated>
+    <title>The Hackathon Circlejerk</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/henrik_w</name>
+      <uri>https://www.reddit.com/user/henrik_w</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/henrik_w"&gt; /u/henrik_w &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://henrikwarne.com/2020/11/25/mathematical-modelling-of-football/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k1at34/mathematical_modelling_of_football/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k1at34</id>
+    <link href="https://www.reddit.com/r/programming/comments/k1at34/mathematical_modelling_of_football/"/>
+    <updated>2020-11-26T07:28:30+00:00</updated>
+    <title>Mathematical Modelling of Football</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/feross</name>
+      <uri>https://www.reddit.com/user/feross</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/feross"&gt; /u/feross &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://rakyll.medium.com/what-did-i-forget-by-working-for-the-same-company-c51b52ce2f8c"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k1012o/what_did_i_forget_by_working_for_the_same_company/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k1012o</id>
+    <link href="https://www.reddit.com/r/programming/comments/k1012o/what_did_i_forget_by_working_for_the_same_company/"/>
+    <updated>2020-11-25T20:20:21+00:00</updated>
+    <title>What did I forget by working for the same company?</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/flumju35</name>
+      <uri>https://www.reddit.com/user/flumju35</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/flumju35"&gt; /u/flumju35 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="http://simpleqr.xyz"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k13bvd/i_made_a_simple_qr_generator_as_i_couldnt_find/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k13bvd</id>
+    <link href="https://www.reddit.com/r/programming/comments/k13bvd/i_made_a_simple_qr_generator_as_i_couldnt_find/"/>
+    <updated>2020-11-25T23:10:58+00:00</updated>
+    <title>I made a simple QR generator as I couldn't find one online :)</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/Fluff_Man9000</name>
+      <uri>https://www.reddit.com/user/Fluff_Man9000</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/Fluff_Man9000"&gt; /u/Fluff_Man9000 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://youtu.be/g7qbHKhz7GM"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k19hvw/flowing_fabric_simulation_using_lines_android/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k19hvw</id>
+    <link href="https://www.reddit.com/r/programming/comments/k19hvw/flowing_fabric_simulation_using_lines_android/"/>
+    <updated>2020-11-26T05:49:37+00:00</updated>
+    <title>"Flowing Fabric" simulation using lines (Android Processing APDE)</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/MobileGamesMotion</name>
+      <uri>https://www.reddit.com/user/MobileGamesMotion</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/MobileGamesMotion"&gt; /u/MobileGamesMotion &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://mcpi.tk/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k131dm/reviving_minecraft_pi_edition/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k131dm</id>
+    <link href="https://www.reddit.com/r/programming/comments/k131dm/reviving_minecraft_pi_edition/"/>
+    <updated>2020-11-25T22:56:04+00:00</updated>
+    <title>Reviving Minecraft Pi Edition</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/steveklabnik1</name>
+      <uri>https://www.reddit.com/user/steveklabnik1</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/steveklabnik1"&gt; /u/steveklabnik1 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://aws.amazon.com/blogs/opensource/why-aws-loves-rust-and-how-wed-like-to-help/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k09w98/why_aws_loves_rust_and_how_wed_like_to_help/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k09w98</id>
+    <link href="https://www.reddit.com/r/programming/comments/k09w98/why_aws_loves_rust_and_how_wed_like_to_help/"/>
+    <updated>2020-11-24T17:50:41+00:00</updated>
+    <title>Why AWS loves Rust, and how we’d like to help</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/konnos92</name>
+      <uri>https://www.reddit.com/user/konnos92</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/konnos92"&gt; /u/konnos92 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://youtu.be/EDRpKp6UcCg"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k1b6o7/solid_single_responsibility_principle_feat_kotlin/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k1b6o7</id>
+    <link href="https://www.reddit.com/r/programming/comments/k1b6o7/solid_single_responsibility_principle_feat_kotlin/"/>
+    <updated>2020-11-26T08:00:01+00:00</updated>
+    <title>S.O.L.I.D | Single Responsibility Principle feat. Kotlin.</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/soygul</name>
+      <uri>https://www.reddit.com/user/soygul</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/soygul"&gt; /u/soygul &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://www.youtube.com/watch?v=gncPwSEzq1s"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k1b315/automating_my_youtube_uploads_using_nodejs/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k1b315</id>
+    <link href="https://www.reddit.com/r/programming/comments/k1b315/automating_my_youtube_uploads_using_nodejs/"/>
+    <updated>2020-11-26T07:51:06+00:00</updated>
+    <title>Automating My YouTube Uploads Using Node.js</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/ppictures</name>
+      <uri>https://www.reddit.com/user/ppictures</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/ppictures"&gt; /u/ppictures &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://github.com/F28WP-Dubai-Group-6/LunarLander"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k1auvv/lunar_lander_an_open_source_survival_space/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k1auvv</id>
+    <link href="https://www.reddit.com/r/programming/comments/k1auvv/lunar_lander_an_open_source_survival_space/"/>
+    <updated>2020-11-26T07:32:35+00:00</updated>
+    <title>Lunar Lander - An open source survival space shooter. A prof of concept I’ve been working in for the past 3 months. Made using HTML elements and no canvas. We are doing public testing now, looking to find bugs and contributors :)</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/fagnerbrack</name>
+      <uri>https://www.reddit.com/user/fagnerbrack</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/fagnerbrack"&gt; /u/fagnerbrack &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://cvcompiler.com/blog/40-words-to-spice-up-your-developer-resume/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k19njz/40_words_to_spice_up_your_developer_resume/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k19njz</id>
+    <link href="https://www.reddit.com/r/programming/comments/k19njz/40_words_to_spice_up_your_developer_resume/"/>
+    <updated>2020-11-26T06:01:23+00:00</updated>
+    <title>40 Words to Spice Up Your Developer Resume</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/nfrankel</name>
+      <uri>https://www.reddit.com/user/nfrankel</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/nfrankel"&gt; /u/nfrankel &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://blog.frankel.ch/inserting-new-commit-git-history/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k19fly/inserting_a_new_commit_in_the_git_history/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k19fly</id>
+    <link href="https://www.reddit.com/r/programming/comments/k19fly/inserting_a_new_commit_in_the_git_history/"/>
+    <updated>2020-11-26T05:44:52+00:00</updated>
+    <title>Inserting a new commit in the Git history</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/corbet</name>
+      <uri>https://www.reddit.com/user/corbet</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/corbet"&gt; /u/corbet &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://lwn.net/Articles/838323/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0wo43/the_new_rules_for_perl_governance/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0wo43</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0wo43/the_new_rules_for_perl_governance/"/>
+    <updated>2020-11-25T17:36:08+00:00</updated>
+    <title>The new rules for Perl governance</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/zupa-hu</name>
+      <uri>https://www.reddit.com/user/zupa-hu</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/zupa-hu"&gt; /u/zupa-hu &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://boomla.com/blog/filesystem-and-database-are-not-cutting-the-problem-space-right"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0upvd/filesystem_and_database_are_not_cutting_the/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0upvd</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0upvd/filesystem_and_database_are_not_cutting_the/"/>
+    <updated>2020-11-25T15:58:15+00:00</updated>
+    <title>Filesystem and Database are not cutting the problem space right</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/asantos3</name>
+      <uri>https://www.reddit.com/user/asantos3</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/asantos3"&gt; /u/asantos3 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://matrix.org/blog/2020/09/30/welcoming-gitter-to-matrix"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0yzpf/welcoming_gitter_to_matrix/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0yzpf</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0yzpf/welcoming_gitter_to_matrix/"/>
+    <updated>2020-11-25T19:28:06+00:00</updated>
+    <title>Welcoming Gitter to Matrix!</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/timow1337</name>
+      <uri>https://www.reddit.com/user/timow1337</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/timow1337"&gt; /u/timow1337 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://github.com/Guardsquare/mocxx"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0scrc/mocxx_a_versatile_c_function_mocking_framework/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0scrc</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0scrc/mocxx_a_versatile_c_function_mocking_framework/"/>
+    <updated>2020-11-25T13:41:05+00:00</updated>
+    <title>mocxx: a versatile C++ function mocking framework based on Frida</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/force-majeure0</name>
+      <uri>https://www.reddit.com/user/force-majeure0</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/force-majeure0"&gt; /u/force-majeure0 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://www.apkvote.com/blog/glasswire-data-usage-monitor/"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k16v3r/glasswire_data_usage_monitor/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k16v3r</id>
+    <link href="https://www.reddit.com/r/programming/comments/k16v3r/glasswire_data_usage_monitor/"/>
+    <updated>2020-11-26T02:49:38+00:00</updated>
+    <title>Glasswire Data Usage Monitor</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/Tongre</name>
+      <uri>https://www.reddit.com/user/Tongre</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/Tongre"&gt; /u/Tongre &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://www.youtube.com/watch?v=ohgcb2-yfrA&amp;amp;feature=share"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k16riz/how_to_create_server_blocks_virtual_hosts_to_host/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k16riz</id>
+    <link href="https://www.reddit.com/r/programming/comments/k16riz/how_to_create_server_blocks_virtual_hosts_to_host/"/>
+    <updated>2020-11-26T02:43:13+00:00</updated>
+    <title>How to Create Server Blocks (Virtual Hosts) to Host Multiple Websites</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/binaryfor</name>
+      <uri>https://www.reddit.com/user/binaryfor</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/binaryfor"&gt; /u/binaryfor &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://github.com/VerbalExpressions/JSVerbalExpressions"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k16bnr/jsverbalexpressions/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k16bnr</id>
+    <link href="https://www.reddit.com/r/programming/comments/k16bnr/jsverbalexpressions/"/>
+    <updated>2020-11-26T02:14:35+00:00</updated>
+    <title>JSVerbalExpressions</title>
+  </entry>
+  <entry>
+    <author>
+      <name>/u/karisigurd4444</name>
+      <uri>https://www.reddit.com/user/karisigurd4444</uri>
+    </author>
+    <category term="programming" label="r/programming"/>
+    <content type="html">&amp;#32; submitted by &amp;#32; &lt;a href="https://www.reddit.com/user/karisigurd4444"&gt; /u/karisigurd4444 &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href="https://github.com/karisigurd4/DocumentLab"&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href="https://www.reddit.com/r/programming/comments/k0ohzx/documentlab_novel_query_language_implementation/"&gt;[comments]&lt;/a&gt;&lt;/span&gt;</content>
+    <id>t3_k0ohzx</id>
+    <link href="https://www.reddit.com/r/programming/comments/k0ohzx/documentlab_novel_query_language_implementation/"/>
+    <updated>2020-11-25T08:41:57+00:00</updated>
+    <title>DocumentLab: Novel query language implementation + OCR technologies for document data extraction</title>
+  </entry>
+</feed>
