@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"flag"
 	"fmt"
+	"golang.org/x/net/html/charset"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -164,6 +165,7 @@ type xmlTime struct {
 
 func (t *xmlTime) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
 	var v string
+	d.CharsetReader = charset.NewReaderLabel
 	err := d.DecodeElement(&v, &el)
 	if err != nil {
 		return err
@@ -185,6 +187,7 @@ type Link struct {
 
 func (l *Link) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
 	var s string
+	d.CharsetReader = charset.NewReaderLabel
 	err := d.DecodeElement(&s, &el)
 	if err != nil {
 		return err
@@ -246,12 +249,20 @@ func unmarshal(byt []byte) (*Feed, error) {
 	var atom AtomFeed
 	var rss RSSFeed
 
-	err = xml.Unmarshal(byt, &atom)
+	reader := bytes.NewReader(byt)
+	decoder := xml.NewDecoder(reader)
+	decoder.CharsetReader = charset.NewReaderLabel
+
+	err = decoder.Decode(&atom)
 	if err == nil {
 		return (&atom).Feed(), nil
 	}
 
-	err = xml.Unmarshal(byt, &rss)
+	reader = bytes.NewReader(byt)
+	decoder = xml.NewDecoder(reader)
+	decoder.CharsetReader = charset.NewReaderLabel
+
+	err = decoder.Decode(&rss)
 	if err == nil {
 		return (&rss).Feed(), nil
 	}

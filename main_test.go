@@ -28,3 +28,11 @@ func TestReddit(t *testing.T) {
 	first := feed.Entries[0]
 	require.Equal(t, first.Title, "Dark Mode Coming to GitHub After 7 Years")
 }
+
+func TestNotUtf8(t *testing.T) {
+	byt, err := ioutil.ReadFile("test-data/not-utf8.rss")
+	require.Nil(t, err)
+
+	_, err = unmarshal(byt)
+	require.Nil(t, err)
+}
