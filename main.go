@@ -224,28 +224,6 @@ type AtomEntry struct {
 	Content string  `xml:"content"`
 }
 
-func downloadFeed(url string) ([]byte, error) {
-	log.Printf("downloading feed %#v\n", url)
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request for feed url=%s err=%w", url, err)
-	}
-	req.Header.Add("User-Agent", UserAgent)
-	client := http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("failed to request feed url=%s err=%w", url, err)
-	}
-
-	byt, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read body contents for feed url=%s err=%w", url, err)
-	}
-	defer resp.Body.Close()
-
-	return byt, nil
-}
-
 func unmarshal(byt []byte) (*Feed, error) {
 	var err error
 	var atom AtomFeed
@@ -392,7 +370,7 @@ func downloadFeeds(cs []*ConfigFeed) ([]*Feed, []*Feed) {
 			continue
 		}
 
-		rf, err := downloadFeed(fc.URL)
+		rf, err := get(fc.URL)
 		if err != nil {
 			fails = append(fails, &Feed{Title: fc.Name, Link: fc.URL, Failure: err})
 			continue
