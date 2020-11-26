@@ -24,3 +24,5 @@ release: clean release-linux release-darwin
 run: build
 	./${ARTIFACT} -config ~/.config/feeder/config.yml
 
+test: build
+	go test -v -vet=all -failfast

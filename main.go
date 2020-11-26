@@ -14,6 +14,7 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/net/html"
 	"golang.org/x/net/html/charset"
 
 	"gopkg.in/gomail.v2"
@@ -276,22 +277,29 @@ func unmarshal(byt []byte) (*Feed, error) {
 	return nil, err
 }
 
-func readFlags() (string, error) {
+type FeederFlags struct {
+	Config    string
+	Subscribe string
+}
+
+func readFlags() (*FeederFlags, error) {
 	var err error
-	var cf string
+	flg := &FeederFlags{}
+
 	flags := flag.NewFlagSet("feeder", flag.ContinueOnError)
-	flags.StringVar(&cf, "config", "", "Path to config file (required).")
+	flags.StringVar(&flg.Config, "config", "", "Path to config file (required).")
+	flags.StringVar(&flg.Subscribe, "subscribe", "", "URL to feed to subscribe to")
 
 	err = flags.Parse(os.Args[1:])
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	if cf == "" {
-		return "", fmt.Errorf("config is required.")
+	if flg.Config == "" {
+		return nil, fmt.Errorf("config is required.")
 	}
 
-	return cf, nil
+	return flg, nil
 }
 
 type Config struct {
@@ -319,13 +327,8 @@ type ConfigFeed struct {
 	Disabled bool   `yaml:"disabled"`
 }
 
-func readConfig() (*Config, error) {
-	fn, err := readFlags()
-	if err != nil {
-		return nil, fmt.Errorf("failed to read flags: %w", err)
-	}
-
-	bt, err := ioutil.ReadFile(fn)
+func readConfig(fp string) (*Config, error) {
+	bt, err := ioutil.ReadFile(fp)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read config file: %w", err)
 	}
@@ -337,6 +340,11 @@ func readConfig() (*Config, error) {
 }
 
 func readFeedsConfig(fp string) ([]*ConfigFeed, error) {
+	_, err := os.Stat(fp)
+	if os.IsNotExist(err) {
+		return []*ConfigFeed{}, nil
+	}
+
 	bt, err := ioutil.ReadFile(fp)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read feeds config file: %w", err)
@@ -348,10 +356,9 @@ func readFeedsConfig(fp string) ([]*ConfigFeed, error) {
 	return fs, err
 }
 
-func failOnErr(err error) {
+func failOnErr(cfg *Config, err error) {
 	if err != nil {
-		cfg, nerr := readConfig()
-		if nerr == nil {
+		if cfg != nil {
 			cf := cfg.Email
 			m := gomail.NewMessage()
 			m.SetHeader("From", cf.From)
@@ -425,7 +432,7 @@ func pickNewData(fs []*Feed, ts map[string]time.Time) []*Feed {
 
 func updateTimestamps(ts map[string]time.Time, nd []*Feed) {
 	for _, f := range nd {
-		if f.Failure != nil {
+		if f.Failure != nil { // TODO don't think this is possible?
 			continue
 		}
 		_, ok := ts[f.ID]
@@ -553,27 +560,119 @@ func countEntries(fs []*Feed) int {
 	return c
 }
 
-func main() {
+func get(url string) ([]byte, error) {
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request for url=%s err=%w", url, err)
+	}
+	req.Header.Add("User-Agent", UserAgent)
+
+	client := http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("failed to request url=%s err=%w", url, err)
+	}
+
+	byt, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read body contents for url=%s err=%w", url, err)
+	}
+	defer resp.Body.Close()
+
+	return byt, nil
+}
+
+func findFeedInfo(byt []byte) (title string, url string) {
+	doc, err := html.Parse(bytes.NewReader(byt))
+	if err != nil {
+		log.Fatalf("failed to parse feed as HTML err=%s", err)
+	}
+
+	var f func(*html.Node)
+	f = func(n *html.Node) {
+		if n.Type == html.ElementNode && n.Data == "title" {
+			title = n.FirstChild.Data
+			log.Printf("found title: %#v", title)
+		}
+		if n.Type == html.ElementNode && n.Data == "link" {
+			var isAlternate bool
+			var href string
+			var typ string
+			for _, a := range n.Attr {
+				switch strings.ToLower(a.Key) {
+				case "rel":
+					isAlternate = a.Val == "alternate"
+				case "type":
+					typ = a.Val
+				case "href":
+					href = a.Val
+				}
+			}
+			if isAlternate && (typ == "application/rss+xml" || typ == "application/atom+xml") {
+				log.Printf("found alternate type=%s href=%s", typ, href)
+				url = href
+			}
+		}
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			f(c)
+		}
+	}
+	f(doc)
+
+	return
+}
+
+func subscribe(cfg *Config, fu string) {
+	log.Printf("downloading feed %#v\n", fu)
+	byt, err := get(fu)
+	if err != nil {
+		log.Fatalf("failed get feed err=%s", err)
+	}
+
+	fc := &ConfigFeed{}
+	fc.Name, fc.URL = findFeedInfo(byt)
+	if fc.Name == "" || fc.URL == "" {
+		log.Fatalf("failed to find both required title and url")
+	}
+
+	ef, err := readFeedsConfig(cfg.FeedsFile)
+	if err != nil {
+		log.Fatalf("failed to read feeds config err=%s", err)
+	}
+
+	// TODO check if title & URL is present?
+	nf := append(ef, fc)
+
+	var bt []byte
+	bt, err = yaml.Marshal(nf)
+	if err != nil {
+		log.Fatalf("failed to marshal feeds err=%s", err)
+	}
+
+	err = ioutil.WriteFile(cfg.FeedsFile, bt, 0677)
+	if err != nil {
+		log.Fatalf("failed to write timestamps file err=%s", err)
+	}
+
+	log.Printf("successfully subscribed to feed %#v.", fc.Name)
+}
+
+func feed(cfg *Config) {
 	var err error
-	var cfg *Config
 	var fs []*ConfigFeed
 	var ts map[string]time.Time
 	var succs, fails, nd []*Feed
 	var et string
 
-	cfg, err = readConfig()
-	failOnErr(err)
-	log.Printf("read config\n")
-
 	ts, err = readTimestamps(cfg.TimestampFile)
-	failOnErr(err)
+	failOnErr(cfg, err)
 	log.Printf("read timestamps from %#v\n", cfg.TimestampFile)
 
 	et, err = readEmailTemplate(cfg.EmailTemplateFile)
-	failOnErr(err)
+	failOnErr(cfg, err)
 
 	fs, err = readFeedsConfig(cfg.FeedsFile)
-	failOnErr(err)
+	failOnErr(cfg, err)
 
 	succs, fails = downloadFeeds(fs)
 	log.Printf("downloaded %v feeds successfully, %v failures\n", len(succs), len(fails))
@@ -586,14 +685,34 @@ func main() {
 	log.Printf("found %v new entries\n", countEntries(nd))
 
 	emailBody, err := makeEmailBody(nd, fails, et)
-	failOnErr(err)
+	failOnErr(cfg, err)
 
 	err = sendEmail(cfg.Email, emailBody)
-	failOnErr(err)
+	failOnErr(cfg, err)
 	log.Printf("sent email\n")
 
 	updateTimestamps(ts, nd)
 	err = writeTimestamps(cfg.TimestampFile, ts)
-	failOnErr(err)
+	failOnErr(cfg, err)
 	log.Printf("wrote updated timestamps to %#v\n", cfg.TimestampFile)
+}
+
+func main() {
+	var err error
+	var flg *FeederFlags
+	var cfg *Config
+
+	flg, err = readFlags()
+	failOnErr(cfg, err)
+
+	cfg, err = readConfig(flg.Config)
+	failOnErr(cfg, err)
+	log.Printf("read config\n")
+
+	if flg.Subscribe != "" {
+		subscribe(cfg, flg.Subscribe)
+		return
+	}
+
+	feed(cfg)
 }
