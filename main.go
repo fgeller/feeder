@@ -618,7 +618,12 @@ func subscribe(cfg *Config, fu string) {
 		log.Fatalf("failed to read feeds config err=%s", err)
 	}
 
-	// TODO check if title & URL is present?
+	for _, f := range ef {
+		if strings.ToLower(f.URL) == strings.ToLower(fc.URL) {
+			log.Printf("feed URL already present in existing feeds, no need to subscribe")
+			os.Exit(0)
+		}
+	}
 	nf := append(ef, fc)
 
 	var bt []byte
