@@ -1,1 +1,9 @@
 feeds-file: './test-data/feeds.yml'
+timestamp-file: './test-data/timestamps.yml'
+email:
+  from: hans@example.com
+  smtp:
+    host: example.com
+    port: 587
+    user: hans@example.com
+    pass: password

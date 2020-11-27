@@ -314,6 +314,34 @@ func readConfig(fp string) (*Config, error) {
 	var cf Config
 	err = yaml.Unmarshal(bt, &cf)
 
+	if cf.FeedsFile == "" {
+		return nil, fmt.Errorf("config is missing feeds-file")
+	}
+
+	if cf.TimestampFile == "" {
+		return nil, fmt.Errorf("config is missing timestamp-file")
+	}
+
+	if cf.Email.From == "" {
+		return nil, fmt.Errorf("config is missing email.from")
+	}
+
+	if cf.Email.SMTP.Host == "" {
+		return nil, fmt.Errorf("config is missing email.smtp.host")
+	}
+
+	if cf.Email.SMTP.Port == 0 {
+		return nil, fmt.Errorf("config is missing email.smtp.port")
+	}
+
+	if cf.Email.SMTP.User == "" {
+		return nil, fmt.Errorf("config is missing email.smtp.user")
+	}
+
+	if cf.Email.SMTP.Pass == "" {
+		return nil, fmt.Errorf("config is missing email.smtp.pass")
+	}
+
 	return &cf, err
 }
 
