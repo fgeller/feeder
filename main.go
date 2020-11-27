@@ -588,7 +588,7 @@ func get(url string) ([]byte, error) {
 	return byt, nil
 }
 
-func findFeedInfo(byt []byte) (title string, url string) {
+func findFeedInfo(byt []byte) (title, link string) {
 	doc, err := html.Parse(bytes.NewReader(byt))
 	if err != nil {
 		log.Fatalf("failed to parse feed as HTML err=%s", err)
@@ -596,7 +596,7 @@ func findFeedInfo(byt []byte) (title string, url string) {
 
 	var f func(*html.Node)
 	f = func(n *html.Node) {
-		if title == "" && n.Type == html.ElementNode && n.Data == "title" {
+		if title == "" && n.Type == html.ElementNode && n.Data == "title" && n.FirstChild != nil {
 			title = n.FirstChild.Data
 			log.Printf("found title: %#v", title)
 		}
@@ -612,11 +612,15 @@ func findFeedInfo(byt []byte) (title string, url string) {
 					typ = a.Val
 				case "href":
 					href = a.Val
+				case "title":
+					if title == "" {
+						title = a.Val
+					}
 				}
 			}
 			if isAlternate && (typ == "application/rss+xml" || typ == "application/atom+xml") {
 				log.Printf("found alternate type=%s href=%s", typ, href)
-				url = href
+				link = href
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
@@ -639,6 +643,19 @@ func subscribe(cfg *Config, fu string) {
 	fc.Name, fc.URL = findFeedInfo(byt)
 	if fc.Name == "" || fc.URL == "" {
 		log.Fatalf("failed to find both required title and url")
+	}
+
+	u, err := url.Parse(fc.URL)
+	if err != nil {
+		log.Fatalf("failed to parse feed href=%s as valid url", fc.URL)
+	}
+
+	if !u.IsAbs() {
+		base, err := url.Parse(fu)
+		if err != nil {
+			log.Fatalf("failed to parse feed url err=%s", err)
+		}
+		fc.URL = base.ResolveReference(u).String()
 	}
 
 	ef, err := readFeedsConfig(cfg.FeedsFile)
@@ -666,7 +683,7 @@ func subscribe(cfg *Config, fu string) {
 		log.Fatalf("failed to write timestamps file err=%s", err)
 	}
 
-	log.Printf("successfully subscribed to feed %#v.", fc.Name)
+	log.Printf("successfully subscribed to feed title=%#v url=%#v", fc.Name, fc.URL)
 }
 
 func feed(cfg *Config) {
