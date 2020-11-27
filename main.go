@@ -264,9 +264,20 @@ func readFlags() (*FeederFlags, error) {
 	var err error
 	flg := &FeederFlags{}
 
-	flags := flag.NewFlagSet("feeder", flag.ContinueOnError)
-	flags.StringVar(&flg.Config, "config", "", "Path to config file (required).")
+	flags := flag.NewFlagSet("feeder", flag.ExitOnError)
+	flags.StringVar(&flg.Config, "config", "", "Path to config file (required)")
 	flags.StringVar(&flg.Subscribe, "subscribe", "", "URL to feed to subscribe to")
+	flags.Usage = func() {
+		fmt.Fprintf(flags.Output(), "Usage of feeder:\n\n")
+		flags.PrintDefaults()
+		help := `
+By default feeder will try to download the configured feeds and send
+the latest entries via email. If the subscribe flag is provided, 
+instead of downloading feeds, feeder tries to subscribe to the feed 
+at the given URL and persists the augmented feeds config.
+`
+		fmt.Fprintf(flags.Output(), help)
+	}
 
 	err = flags.Parse(os.Args[1:])
 	if err != nil {
