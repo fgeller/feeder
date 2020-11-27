@@ -617,6 +617,7 @@ func subscribe(cfg *Config, fu string) {
 	if err != nil {
 		log.Fatalf("failed to read feeds config err=%s", err)
 	}
+	log.Printf("read feeds config: %v feeds.", len(ef))
 
 	for _, f := range ef {
 		if strings.ToLower(f.URL) == strings.ToLower(fc.URL) {
@@ -656,6 +657,7 @@ func feed(cfg *Config) {
 
 	fs, err = readFeedsConfig(cfg.FeedsFile)
 	failOnErr(cfg, err)
+	log.Printf("read feeds config: %v feeds.", len(fs))
 
 	succs, fails = downloadFeeds(fs)
 	log.Printf("downloaded %v feeds successfully, %v failures\n", len(succs), len(fails))
