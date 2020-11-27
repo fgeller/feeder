@@ -640,22 +640,29 @@ func subscribe(cfg *Config, fu string) {
 	}
 
 	fc := &ConfigFeed{}
-	fc.Name, fc.URL = findFeedInfo(byt)
-	if fc.Name == "" || fc.URL == "" {
-		log.Fatalf("failed to find both required title and url")
-	}
 
-	u, err := url.Parse(fc.URL)
-	if err != nil {
-		log.Fatalf("failed to parse feed href=%s as valid url", fc.URL)
-	}
-
-	if !u.IsAbs() {
-		base, err := url.Parse(fu)
-		if err != nil {
-			log.Fatalf("failed to parse feed url err=%s", err)
+	uf, err := unmarshal(byt)
+	if err == nil {
+		fc.Name = uf.Title
+		fc.URL = fu
+	} else {
+		fc.Name, fc.URL = findFeedInfo(byt)
+		if fc.Name == "" || fc.URL == "" {
+			log.Fatalf("failed to find both required title and url")
 		}
-		fc.URL = base.ResolveReference(u).String()
+
+		u, err := url.Parse(fc.URL)
+		if err != nil {
+			log.Fatalf("failed to parse feed href=%s as valid url", fc.URL)
+		}
+
+		if !u.IsAbs() {
+			base, err := url.Parse(fu)
+			if err != nil {
+				log.Fatalf("failed to parse feed url err=%s", err)
+			}
+			fc.URL = base.ResolveReference(u).String()
+		}
 	}
 
 	ef, err := readFeedsConfig(cfg.FeedsFile)
