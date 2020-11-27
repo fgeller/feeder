@@ -3,17 +3,22 @@
 Aggregates news feed updates and sends them to your email inbox.
 
 - Supports Atom and RSS feeds.
-- Uses Golang [html/template](https://golang.org/pkg/html/template/#pkg-overview) to customize email body.
+- Supports subscribing to feed directly, or scanning for a `link` tag at a given URL.
+- Uses Golang [html/template](https://golang.org/pkg/html/template/#pkg-overview) to customize the email body.
 - Update timestamps persisted to YAML file.
 
 ## Usage
 
 - Install via `go install github.com/fgeller/feeder` or download a [release](https://github.com/fgeller/feeder/releases).
-- Create [configuration file](https://github.com/fgeller/feeder#configuration), customizing email settings and feeds.
-- Run via `./feeder -config your-config.yml`
-- Set up recurring execution, e.g. via `crontab -e`
+- Create a [config file](https://github.com/fgeller/feeder#example-config), customizing email settings and file paths.
+- Add subscribed feeds either by:
+  - maintaing the [feeds config file](https://github.com/fgeller/feeder#example-feeds-config) manually, or
+  - using feeder via `feeder -config cfg.yml -subscribe https://example.com/blog/`
+- Run via `feeder -config cfg.yml` manually, or set up recurring execution, e.g. via `crontab -e`
 
 ## Configuration
+
+- `feeds-file` is the list of feeds you are subscribed to.
 
 - `timestamp-file` is required to persist what updates have been seen.
 
@@ -23,13 +28,14 @@ Aggregates news feed updates and sends them to your email inbox.
   also be the `to` address and the `smtp` object allows for standard smtp host
   and auth configuration.
 
-- `feeds` is an array of objects with `name` and `url` string fields
+- `feeds` is an array of objects with `name` and `url` string fields. Optionally you can set a bool `disabled` to temporarily pause a subscription.
 
-### Example:
+### Example Config
 
 ```yaml
-timestamp-file: '/Users/fgeller/.config/feeder/timestamps.yml'
-email-template-file: '/Users/fgeller/.config/feeder/email.tmpl'
+feeds-file: '/home/fgeller/.config/feeder/feeds.yml'
+timestamp-file: '/home/fgeller/.config/feeder/timestamps.yml'
+email-template-file: '/home/fgeller/.config/feeder/email.tmpl'
 email:
   from: example@gmail.com
   smtp:
@@ -37,12 +43,15 @@ email:
     port: 587
     user: example@gmail.com
     pass: passwort
+```
 
-feeds:
-  - name: 'irreal'
-    url: https://irreal.org/blog/?feed=rss2
-  - name: The Go Blog
-    url: https://blog.golang.org/feed.atom
+### Example Feeds Config
+
+```yaml
+- name: 'irreal'
+  url: https://irreal.org/blog/?feed=rss2
+- name: The Go Blog
+  url: https://blog.golang.org/feed.atom
 ```
 
 ## Alternatives
