@@ -596,7 +596,7 @@ func findFeedInfo(byt []byte) (title string, url string) {
 
 	var f func(*html.Node)
 	f = func(n *html.Node) {
-		if n.Type == html.ElementNode && n.Data == "title" {
+		if title == "" && n.Type == html.ElementNode && n.Data == "title" {
 			title = n.FirstChild.Data
 			log.Printf("found title: %#v", title)
 		}
