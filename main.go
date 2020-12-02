@@ -801,7 +801,7 @@ func main() {
 	feed(cfg)
 }
 
-const AppVersion = "1.0.0"
+const AppVersion = "2.0.0"
 
 var buildVersion = ""
 var buildTime = ""
