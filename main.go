@@ -263,6 +263,7 @@ func unmarshal(byt []byte) (*Feed, error) {
 type FeederFlags struct {
 	Config    string
 	Subscribe string
+	Version   bool
 }
 
 func readFlags() (*FeederFlags, error) {
@@ -272,6 +273,7 @@ func readFlags() (*FeederFlags, error) {
 	flags := flag.NewFlagSet("feeder", flag.ExitOnError)
 	flags.StringVar(&flg.Config, "config", "", "Path to config file (required)")
 	flags.StringVar(&flg.Subscribe, "subscribe", "", "URL to feed to subscribe to")
+	flags.BoolVar(&flg.Version, "version", false, "Print version information")
 	flags.Usage = func() {
 		fmt.Fprintf(flags.Output(), "Usage of feeder:\n\n")
 		flags.PrintDefaults()
@@ -287,6 +289,10 @@ at the given URL and persists the augmented feeds config.
 	err = flags.Parse(os.Args[1:])
 	if err != nil {
 		return nil, err
+	}
+
+	if flg.Version {
+		return flg, nil
 	}
 
 	if flg.Config == "" {
@@ -750,6 +756,26 @@ func feed(cfg *Config) {
 	log.Printf("wrote updated timestamps to %#v\n", cfg.TimestampFile)
 }
 
+func printVersion() {
+	v := fmt.Sprintf("feeder version %s", AppVersion)
+
+	if buildVersion != "" || buildTime != "" {
+		v += " ("
+		if buildVersion != "" {
+			v += buildVersion
+		}
+
+		if buildTime != "" {
+			if buildVersion != "" {
+				v += " @ "
+			}
+			v += buildTime
+		}
+		v += ")"
+	}
+	fmt.Println(v)
+}
+
 func main() {
 	var err error
 	var flg *FeederFlags
@@ -757,6 +783,11 @@ func main() {
 
 	flg, err = readFlags()
 	failOnErr(cfg, err)
+
+	if flg.Version {
+		printVersion()
+		return
+	}
 
 	cfg, err = readConfig(flg.Config)
 	failOnErr(cfg, err)
@@ -769,3 +800,8 @@ func main() {
 
 	feed(cfg)
 }
+
+const AppVersion = "1.0.0"
+
+var buildVersion = ""
+var buildTime = ""
