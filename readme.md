@@ -15,6 +15,22 @@ Aggregates news feed updates and sends them to your email inbox.
   - maintaing the [feeds config file](https://github.com/fgeller/feeder#example-feeds-config) manually, or
   - using feeder via `feeder -config cfg.yml -subscribe https://example.com/blog/`
 - Run via `feeder -config cfg.yml` manually, or set up recurring execution, e.g. via `crontab -e`
+- `feeder -help` output:
+```
+Usage of feeder:
+
+  -config string
+        Path to config file (required)
+  -subscribe string
+        URL to feed to subscribe to
+  -version
+        Print version information
+
+By default feeder will try to download the configured feeds and send
+the latest entries via email. If the subscribe flag is provided, 
+instead of downloading feeds, feeder tries to subscribe to the feed 
+at the given URL and persists the augmented feeds config.
+```
 
 ## Configuration
 
