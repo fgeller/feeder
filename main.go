@@ -307,6 +307,7 @@ type Config struct {
 	EmailTemplateFile string      `yaml:"email-template-file"`
 	FeedsFile         string      `yaml:"feeds-file"`
 	Email             ConfigEmail `yaml:"email"`
+	MaxEntriesPerFeed int         `yaml:"max-entries-per-feed"`
 }
 
 type ConfigEmail struct {
@@ -362,6 +363,10 @@ func readConfig(fp string) (*Config, error) {
 
 	if cf.Email.SMTP.Pass == "" {
 		return nil, fmt.Errorf("config is missing email.smtp.pass")
+	}
+
+	if cf.MaxEntriesPerFeed == 0 {
+		cf.MaxEntriesPerFeed = 3
 	}
 
 	return &cf, err
@@ -437,8 +442,7 @@ func downloadFeeds(cs []*ConfigFeed) ([]*Feed, []*Feed) {
 	return succs, fails
 }
 
-func pickNewData(fs []*Feed, ts map[string]time.Time) []*Feed {
-	limitPerFeed := 3
+func pickNewData(fs []*Feed, limitPerFeed int, ts map[string]time.Time) []*Feed {
 	result := []*Feed{}
 	for _, f := range fs {
 		nf := &Feed{Title: f.Title, ID: f.ID, Link: f.Link, Updated: f.Updated, Entries: []*FeedEntry{}}
@@ -736,7 +740,7 @@ func feed(cfg *Config) {
 	succs, fails = downloadFeeds(fs)
 	log.Printf("downloaded %v feeds successfully, %v failures\n", len(succs), len(fails))
 
-	nd = pickNewData(succs, ts)
+	nd = pickNewData(succs, cfg.MaxEntriesPerFeed, ts)
 	if len(nd) == 0 && len(fails) == 0 {
 		log.Printf("found no new entries")
 		return

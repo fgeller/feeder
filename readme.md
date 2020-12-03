@@ -44,7 +44,7 @@ at the given URL and persists the augmented feeds config.
   also be the `to` address and the `smtp` object allows for standard smtp host
   and auth configuration.
 
-- `feeds` is an array of objects with `name` and `url` string fields. Optionally you can set a bool `disabled` to temporarily pause a subscription.
+- `max-entries-per-feed` is the maximum number of entries to send per feed.
 
 ### Example Config
 
