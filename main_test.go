@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"net/url"
 	"testing"
 	"time"
 
@@ -48,4 +49,32 @@ func TestParseDateNoTime(t *testing.T) {
 
 	updated := feed.Entries[0].Updated
 	require.Equal(t, updated, time.Date(2020, 11, 23, 0, 0, 0, 0, time.UTC))
+}
+
+func TestSubstituteRelativeImageSrc(t *testing.T) {
+	orig := `src="/plus/misc/images/her-soundtrack.jpg"`
+	expected := `src="http://kottke.org/plus/misc/images/her-soundtrack.jpg"`
+
+	byt, err := ioutil.ReadFile("test-data/kottke-entry.html")
+	require.Nil(t, err)
+	require.Contains(t, string(byt), orig, "entry should contain relative url")
+
+	bu, err := url.Parse("http://kottke.org/")
+	res, err := absolutifyHTML(string(byt), bu)
+	require.Contains(t, string(res), expected, "relative url should be replaced by absolute one")
+}
+
+func TestSubstituteRelativeAHref(t *testing.T) {
+	orig := `href="/bradfitz"`
+	expected := `href="https://github.com/bradfitz"`
+
+	byt, err := ioutil.ReadFile("test-data/github-entry.html")
+	require.Nil(t, err)
+	require.Contains(t, string(byt), orig, "entry should contain relative url")
+	require.NotContains(t, string(byt), expected, "absolute url should not yet be present")
+
+	bu, err := url.Parse("https://github.com/")
+	res, err := absolutifyHTML(string(byt), bu)
+	require.Contains(t, string(res), expected, "relative url should be replaced by absolute one")
+	require.NotContains(t, string(res), orig, "relative url should not be present anymore")
 }

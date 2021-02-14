@@ -104,10 +104,20 @@ func (f *RSSFeed) Feed() *Feed {
 		log.Fatalf("missing link on feed %#v", f.Title)
 	}
 
+	var id, lk = f.Links[0], f.Links[0] // 🤨
+
+	for _, l := range f.Links {
+		if l.Type == "text/html" || l.Rel == "alternate" {
+			lk = l
+		} else if l.Rel == "self" {
+			id = l
+		}
+	}
+
 	cf := &Feed{
-		ID:      f.Links[0].HRef, // 🤨
+		ID:      id.HRef,
 		Title:   f.Title,
-		Link:    f.Links[0].HRef,
+		Link:    lk.HRef,
 		Entries: []*FeedEntry{},
 	}
 
@@ -190,6 +200,8 @@ func (t *xmlTime) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
 type Link struct {
 	XMLName xml.Name `xml:"link"`
 	HRef    string
+	Rel     string
+	Type    string
 }
 
 func (l *Link) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
@@ -303,11 +315,12 @@ at the given URL and persists the augmented feeds config.
 }
 
 type Config struct {
-	TimestampFile     string      `yaml:"timestamp-file"`
-	EmailTemplateFile string      `yaml:"email-template-file"`
-	FeedsFile         string      `yaml:"feeds-file"`
-	Email             ConfigEmail `yaml:"email"`
-	MaxEntriesPerFeed int         `yaml:"max-entries-per-feed"`
+	TimestampFile       string      `yaml:"timestamp-file"`
+	EmailTemplateFile   string      `yaml:"email-template-file"`
+	FeedsFile           string      `yaml:"feeds-file"`
+	Email               ConfigEmail `yaml:"email"`
+	MaxEntriesPerFeed   int         `yaml:"max-entries-per-feed"`
+	ReplaceRelativeURLs bool        `yaml:"replace-relative-urls"`
 }
 
 type ConfigEmail struct {
@@ -584,6 +597,75 @@ func makeEmailBody(succs []*Feed, fails []*Feed, emailTemplate string) (string, 
 	return buf.String(), nil
 }
 
+func absolutifyHTML(in string, base *url.URL) (string, error) {
+	ir := strings.NewReader(in)
+	node, err := html.ParseFragment(ir, nil)
+	if err != nil {
+		return in, fmt.Errorf("failed to parse as HTML err=%w", err)
+	}
+
+	absolutify := func(u string) (string, error) {
+		pu, err := url.Parse(u)
+		if err != nil {
+			return "", fmt.Errorf("failed to parse url=%#v err=%w", u, err)
+		}
+
+		if pu.IsAbs() {
+			return u, nil
+		}
+		ru := base.ResolveReference(pu)
+		return ru.String(), nil
+	}
+
+	var visit func(n *html.Node)
+	visit = func(n *html.Node) {
+		if n.Type == html.ElementNode {
+			switch strings.ToLower(n.Data) {
+			case "img":
+				for i, a := range n.Attr {
+					if strings.ToLower(a.Key) == "src" {
+						nval, err := absolutify(a.Val)
+						if err != nil {
+							log.Printf("ignoring url parse error: %s", err)
+							continue
+						}
+						n.Attr[i].Val = nval
+					}
+				}
+			case "a":
+				for i, a := range n.Attr {
+					if strings.ToLower(a.Key) == "href" {
+						nval, err := absolutify(a.Val)
+						if err != nil {
+							log.Printf("ignoring url parse error: %s", err)
+							continue
+						}
+						n.Attr[i].Val = nval
+					}
+				}
+			}
+		}
+
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			visit(c)
+		}
+	}
+
+	result := ""
+	for _, n := range node {
+		visit(n)
+		buf := bytes.NewBuffer(make([]byte, 0, len(in)))
+		err := html.Render(buf, n)
+		if err != nil {
+			return in, fmt.Errorf("failed to render back to html err=%#v", err)
+		}
+		result += buf.String()
+		result += " "
+	}
+
+	return result, nil
+}
+
 func countEntries(fs []*Feed) int {
 	c := 0
 	for _, f := range fs {
@@ -747,6 +829,10 @@ func feed(cfg *Config) {
 	}
 	log.Printf("found %v new entries\n", countEntries(nd))
 
+	if cfg.ReplaceRelativeURLs {
+		resolveRelativeURLs(nd)
+	}
+
 	emailBody, err := makeEmailBody(nd, fails, et)
 	failOnErr(cfg, err)
 
@@ -758,6 +844,24 @@ func feed(cfg *Config) {
 	err = writeTimestamps(cfg.TimestampFile, ts)
 	failOnErr(cfg, err)
 	log.Printf("wrote updated timestamps to %#v\n", cfg.TimestampFile)
+}
+
+func resolveRelativeURLs(fs []*Feed) {
+	for _, f := range fs {
+		bu, err := url.Parse(f.Link)
+		if err != nil {
+			log.Printf("ignoring url parse error when trying to replace relative urls err=%v", err)
+			continue
+		}
+		for _, e := range f.Entries {
+			nc, err := absolutifyHTML(string(e.Content), bu)
+			if err != nil {
+				log.Printf("ignoring error from replacing relative url err=%v", err)
+				continue
+			}
+			e.Content = template.HTML(nc)
+		}
+	}
 }
 
 func printVersion() {
