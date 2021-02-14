@@ -542,6 +542,11 @@ func FormatTime(t time.Time) string {
 	return t.Format("2006-01-02 15:04 MST")
 }
 
+// FormatLayoutTime prints a time according to the given layout.
+func FormatLayoutTime(layout string, t *time.Time) string {
+	return t.Format(layout)
+}
+
 var defaultEmailTemplate = `
 {{ range .Successes}}
 <h1 style="border: 1px solid #acb0bf; border-radius: 3px; background: #f4f4f4; padding: 1em; margin: 1.6em 0;"><a href="{{ .Link }}" style="text-decoration: none; color: RoyalBlue; ">{{ .Title }}</a></h1>
@@ -582,7 +587,7 @@ type templateData struct {
 }
 
 func makeEmailBody(succs []*Feed, fails []*Feed, emailTemplate string) (string, error) {
-	fs := template.FuncMap{"FormatTime": FormatTime}
+	fs := template.FuncMap{"FormatTime": FormatTime, "FormatLayoutTime": FormatLayoutTime}
 	tmpl, err := template.New("email").Funcs(fs).Parse(emailTemplate)
 	if err != nil {
 		return "", fmt.Errorf("failed to parse template err=%w", err)
