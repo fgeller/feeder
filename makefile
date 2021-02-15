@@ -9,7 +9,7 @@ clean:
 build: GOOS ?= ${OS}
 build: GOARCH ?= amd64
 build: clean
-	GOOS=${GOOS} GOARCH=${GOARCH} go build -ldflags "-X main.buildTime=`date --iso-8601=s` -X main.buildVersion=`git rev-parse HEAD | cut -c-7`" .
+	GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 go build -ldflags "-X main.buildTime=`date --iso-8601=s` -X main.buildVersion=`git rev-parse HEAD | cut -c-7`" .
 
 release-linux:
 	GOOS=linux $(MAKE) build
