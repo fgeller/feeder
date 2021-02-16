@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/user"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -283,7 +285,7 @@ func readFlags() (*FeederFlags, error) {
 	flg := &FeederFlags{}
 
 	flags := flag.NewFlagSet("feeder", flag.ExitOnError)
-	flags.StringVar(&flg.Config, "config", "", "Path to config file (required)")
+	flags.StringVar(&flg.Config, "config", "", "Path to config file (default $XDG_CONFIG_HOME/feeder/config.yml)")
 	flags.StringVar(&flg.Subscribe, "subscribe", "", "URL to feed to subscribe to")
 	flags.BoolVar(&flg.Version, "version", false, "Print version information")
 	flags.Usage = func() {
@@ -308,10 +310,37 @@ at the given URL and persists the augmented feeds config.
 	}
 
 	if flg.Config == "" {
-		return nil, fmt.Errorf("config is required.")
+		df, err := defaultConfigPath()
+		if err != nil {
+			return nil, fmt.Errorf("failed to check default config file err=%w", err)
+		}
+
+		if !fileExists(df) {
+			return nil, fmt.Errorf("config is required.")
+		}
+		flg.Config = df
+		log.Printf("found default config file: %#v", df)
 	}
 
 	return flg, nil
+}
+
+func defaultConfigPath() (string, error) {
+	ch := os.Getenv("XDG_CONFIG_HOME")
+	if ch == "" {
+		u, err := user.Current()
+		if err != nil {
+			return ch, fmt.Errorf("failed to retrieve current user err=%w", err)
+		}
+		ch = filepath.Join(u.HomeDir, ".config")
+	}
+	cp := filepath.Join(ch, "feeder", "config.yml")
+	return cp, nil
+}
+
+func fileExists(path string) bool {
+	_, err := os.Stat(path)
+	return !os.IsNotExist(err)
 }
 
 type Config struct {

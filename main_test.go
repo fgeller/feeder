@@ -78,3 +78,10 @@ func TestSubstituteRelativeAHref(t *testing.T) {
 	require.Contains(t, string(res), expected, "relative url should be replaced by absolute one")
 	require.NotContains(t, string(res), orig, "relative url should not be present anymore")
 }
+
+func TestFileExists(t *testing.T) {
+	exists := "readme.md"
+	doesNotExist := "does-not-exist"
+	require.True(t, fileExists(exists))
+	require.False(t, fileExists(doesNotExist))
+}
