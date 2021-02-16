@@ -166,6 +166,9 @@ func (f *AtomFeed) Feed() *Feed {
 		Entries: []*FeedEntry{},
 	}
 	for _, e := range f.Entries {
+		if e.Content == "" && e.MediaGroup != nil {
+			e.Content = e.MediaGroup.HTML()
+		}
 		cf.Entries = append(cf.Entries, &FeedEntry{
 			Title:   e.Title,
 			Link:    e.Link.HRef,
@@ -236,11 +239,61 @@ func (l *Link) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
 }
 
 type AtomEntry struct {
-	Title   string  `xml:"title"`
-	Link    Link    `xml:"link"`
-	Updated xmlTime `xml:"updated"`
-	ID      string  `xml:"id"`
-	Content string  `xml:"content"`
+	Title      string      `xml:"title"`
+	Link       Link        `xml:"link"`
+	Updated    xmlTime     `xml:"updated"`
+	ID         string      `xml:"id"`
+	Content    string      `xml:"content"`
+	MediaGroup *MediaGroup `xml:"group"`
+}
+
+type MediaGroup struct {
+	Title       string          `xml:"title"`
+	Content     *MediaContent   `xml:"content"`
+	Thumbnail   *MediaThumbnail `xml:"thumbnail"`
+	Description string          `xml:"description"`
+	Community   *MediaCommunity `xml:"community"`
+}
+
+func (mg *MediaGroup) HTML() string {
+	result := fmt.Sprintf(`<div>%s</div>`, mg.Description)
+	if mg.Thumbnail != nil {
+		result += fmt.Sprintf(`<div><a href="%s">%s</a></div>`, mg.Content.URL, mg.Thumbnail.HTML())
+	}
+	return result
+}
+
+type MediaThumbnail struct {
+	URL    string `xml:"url,attr"`
+	Width  int    `xml:"width,attr"`
+	Height int    `xml:"height,attr"`
+}
+
+func (mt *MediaThumbnail) HTML() string {
+	return fmt.Sprintf(`<img src="%s" width="%v" height="%v" />`, mt.URL, mt.Width, mt.Height)
+}
+
+type MediaContent struct {
+	URL    string `xml:"url,attr"`
+	Type   string `xml:"type,attr"`
+	Width  int    `xml:"width,attr"`
+	Height int    `xml:"height,attr"`
+}
+
+type MediaCommunity struct {
+	StarRating *MediaStarRating `xml:"starRating"`
+	Statistics *MediaStatistics `xml:"statistics"`
+}
+
+type MediaStarRating struct {
+	Count   int     `xml:"count,attr"`
+	Average float64 `xml:"average,attr"`
+	Min     int     `xml:"min,attr"`
+	Max     int     `xml:"max,attr"`
+}
+
+type MediaStatistics struct {
+	Views int64 `xml:"views,attr"`
 }
 
 func unmarshal(byt []byte) (*Feed, error) {
@@ -730,7 +783,7 @@ func get(url string) ([]byte, error) {
 	return byt, nil
 }
 
-func findFeedInfo(byt []byte) (title, link string) {
+func findFeedInfo(byt []byte) (feedTitle, link string) {
 	doc, err := html.Parse(bytes.NewReader(byt))
 	if err != nil {
 		log.Fatalf("failed to parse feed as HTML err=%s", err)
@@ -738,31 +791,21 @@ func findFeedInfo(byt []byte) (title, link string) {
 
 	var f func(*html.Node)
 	f = func(n *html.Node) {
-		if title == "" && n.Type == html.ElementNode && n.Data == "title" && n.FirstChild != nil {
-			title = n.FirstChild.Data
-			log.Printf("found title: %#v", title)
+		if feedTitle == "" && n.Type == html.ElementNode && n.Data == "title" && n.FirstChild != nil {
+			feedTitle = n.FirstChild.Data
+			log.Printf("found title: %#v", feedTitle)
 		}
 		if n.Type == html.ElementNode && n.Data == "link" {
-			var isAlternate bool
-			var href string
-			var typ string
-			for _, a := range n.Attr {
-				switch strings.ToLower(a.Key) {
-				case "rel":
-					isAlternate = a.Val == "alternate"
-				case "type":
-					typ = a.Val
-				case "href":
-					href = a.Val
-				case "title":
-					if title == "" {
-						title = a.Val
-					}
-				}
-			}
-			if isAlternate && (typ == "application/rss+xml" || typ == "application/atom+xml") {
-				log.Printf("found alternate type=%s href=%s", typ, href)
+			href := getAttr(n, "href")
+			title := getAttr(n, "title")
+			typ := getAttr(n, "type")
+			rel := getAttr(n, "rel")
+			if rel == "alternate" && (typ == "application/rss+xml" || typ == "application/atom+xml") {
+				log.Printf("found alternate title=%s type=%s href=%s", title, typ, href)
 				link = href
+				if feedTitle == "" {
+					feedTitle = title
+				}
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
@@ -772,6 +815,15 @@ func findFeedInfo(byt []byte) (title, link string) {
 	f(doc)
 
 	return
+}
+
+func getAttr(n *html.Node, name string) string {
+	for _, a := range n.Attr {
+		if a.Key == name {
+			return a.Val
+		}
+	}
+	return ""
 }
 
 func subscribe(cfg *Config, fu string) {
@@ -788,6 +840,7 @@ func subscribe(cfg *Config, fu string) {
 		fc.Name = uf.Title
 		fc.URL = fu
 	} else {
+		log.Printf("could not unmarshal as RSS or Atom, checking for alternate link")
 		fc.Name, fc.URL = findFeedInfo(byt)
 		if fc.Name == "" || fc.URL == "" {
 			log.Fatalf("failed to find both required title and url")

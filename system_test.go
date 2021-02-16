@@ -99,4 +99,25 @@ func TestSystem(t *testing.T) {
 	expected1 := &ConfigFeed{Name: "kottke.org - home of fine hypertext products", URL: "http://feeds.kottke.org/main"}
 	require.Equal(t, expected0, fs[0])
 	require.Equal(t, expected1, fs[1])
+
+	//
+	// feeder -config test-data/subscribe-cfg.yml -subscribe https://www.youtube.com/channel/UCe1Aj6VEO299Yq4WkXdoD3Q
+	//
+	status, stdOut, stdErr = newCmd().
+		run("./feeder",
+			"-config", "test-data/subscribe-cfg.yml",
+			"-subscribe", "https://www.youtube.com/channel/UCe1Aj6VEO299Yq4WkXdoD3Q",
+		)
+	fmt.Printf(">> feeder -config test-data/subscribe-cfg.yml -subscribe https://www.youtube.com/channel/UCe1Aj6VEO299Yq4WkXdoD3Q stdout:\n%s\n", stdOut)
+	fmt.Printf(">> feeder -config test-data/subscribe-cfg.yml -subscribe https://www.youtube.com/channel/UCe1Aj6VEO299Yq4WkXdoD3Q stderr:\n%s\n", stdErr)
+	require.Zero(t, status)
+
+	fs, err = readFeedsConfig("test-data/feeds.yml")
+	require.Nil(t, err)
+	require.Len(t, fs, 3)
+
+	expected2 := &ConfigFeed{Name: "Alexandre Chappel - YouTube", URL: "https://www.youtube.com/feeds/videos.xml?channel_id=UCe1Aj6VEO299Yq4WkXdoD3Q"}
+	require.Equal(t, expected0, fs[0])
+	require.Equal(t, expected1, fs[1])
+	require.Equal(t, expected2, fs[2])
 }

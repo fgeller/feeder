@@ -23,12 +23,27 @@ func TestReddit(t *testing.T) {
 
 	feed, err := unmarshal(byt)
 	require.Nil(t, err)
-	require.Equal(t, feed.Title, "programming")
-	require.Equal(t, feed.Link, "https://www.reddit.com/r/programming/")
-	require.Equal(t, len(feed.Entries), 25)
+	require.Equal(t, "programming", feed.Title)
+	require.Equal(t, "https://www.reddit.com/r/programming/", feed.Link)
+	require.Len(t, feed.Entries, 25)
 
 	first := feed.Entries[0]
 	require.Equal(t, first.Title, "Dark Mode Coming to GitHub After 7 Years")
+}
+
+func TestYouTube(t *testing.T) {
+	byt, err := ioutil.ReadFile("test-data/wandel.xml")
+	require.Nil(t, err)
+
+	feed, err := unmarshal(byt)
+	require.Nil(t, err)
+	require.Equal(t, "Matthias Wandel", feed.Title)
+	require.Equal(t, "https://www.youtube.com/channel/UCckETVOT59aYw80B36aP9vw", feed.Link)
+	require.Len(t, feed.Entries, 15)
+
+	first := feed.Entries[0]
+	require.Equal(t, "26\" bandsaw sawdust drawer and bottom enclosure", first.Title)
+	require.Equal(t, "<div>Working on finishing up my 26\" bandsaw.  In this eposode, making the bottom enclosure and the sawdust drawer.  This directs nearly all the sawdust into the drawer, making for passive dust collection.\n\n\nhttp://woodgears.ca/big_bandsaw/bottom_enclosure.html</div><div><a href=\"https://www.youtube.com/v/9eRIUV94kgQ?version=3\"><img src=\"https://i2.ytimg.com/vi/9eRIUV94kgQ/hqdefault.jpg\" width=\"480\" height=\"360\" /></a></div>", string(first.Content))
 }
 
 func TestNotUtf8(t *testing.T) {
