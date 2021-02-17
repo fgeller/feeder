@@ -13,8 +13,10 @@ func TestTakeOnRules(t *testing.T) {
 	byt, err := ioutil.ReadFile("test-data/take-on-rules.atom")
 	require.Nil(t, err)
 
-	_, err = unmarshal(byt)
+	f, err := unmarshal(byt)
 	require.Nil(t, err)
+
+	require.Equal(t, "https://takeonrules.com/", f.Link)
 }
 
 func TestReddit(t *testing.T) {

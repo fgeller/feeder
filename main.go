@@ -151,7 +151,7 @@ func (f *RSSFeed) Feed() *Feed {
 type AtomFeed struct {
 	XMLName xml.Name     `xml:"feed"`
 	Title   string       `xml:"title"`
-	Link    Link         `xml:"link"`
+	Links   []*Link      `xml:"link"`
 	Updated xmlTime      `xml:"updated"`
 	ID      string       `xml:"id"`
 	Entries []*AtomEntry `xml:"entry"`
@@ -161,15 +161,22 @@ func (f *AtomFeed) Feed() *Feed {
 	cf := &Feed{
 		ID:      f.ID,
 		Title:   f.Title,
-		Link:    f.Link.HRef,
 		Updated: f.Updated.Time,
 		Entries: []*FeedEntry{},
 	}
+
+	for _, l := range f.Links {
+		if l.Rel != "self" {
+			cf.Link = l.HRef
+			break
+		}
+	}
+
 	for _, e := range f.Entries {
 		if e.Content == "" && e.MediaGroup != nil {
 			e.Content = e.MediaGroup.HTML()
 		}
-		cf.Entries = append(cf.Entries, &FeedEntry{
+		cf.Entries = append(cf.Entries, &FeedEntry{ // TODO e.Entry() ?
 			Title:   e.Title,
 			Link:    e.Link.HRef,
 			ID:      e.ID,
@@ -223,19 +230,29 @@ func (l *Link) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
 		return nil
 	}
 
-	if len(el.Attr) > 0 {
-		for _, a := range el.Attr {
-			if a.Name.Local == "href" {
-				_, err = url.ParseRequestURI(a.Value)
-				if err == nil {
-					l.HRef = a.Value
-					return nil
-				}
-			}
-		}
+	l.HRef = getXMLAttr(el, "href")
+	l.Rel = getXMLAttr(el, "rel")
+	l.Type = getXMLAttr(el, "type")
+
+	if l.HRef == "" {
+		return fmt.Errorf("found no href content in link element %#v", el)
 	}
 
-	return fmt.Errorf("found no href content in link element %#v", el)
+	_, err = url.ParseRequestURI(l.HRef)
+	if err != nil {
+		return fmt.Errorf("could not parse link's href=%#v err=%w", l.HRef, err)
+	}
+
+	return nil
+}
+
+func getXMLAttr(el xml.StartElement, name string) string {
+	for _, a := range el.Attr {
+		if a.Name.Local == name {
+			return a.Value
+		}
+	}
+	return ""
 }
 
 type AtomEntry struct {
