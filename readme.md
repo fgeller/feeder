@@ -3,9 +3,10 @@
 Aggregates news feed updates and sends them to your email inbox.
 
 - Supports Atom and RSS feeds.
-- Supports subscribing to feed directly, or scanning for a `link` tag at a given URL.
+- Supports subscribing to feed URL directly, or scanning for a `link` tag at a given URL.
 - Uses Golang [html/template](https://golang.org/pkg/html/template/#pkg-overview) to customize the email body.
 - Update timestamps persisted to YAML file.
+- Optionally resolves relative URLs
 
 ## Usage
 
@@ -13,14 +14,14 @@ Aggregates news feed updates and sends them to your email inbox.
 - Create a [config file](https://github.com/fgeller/feeder#example-config), customizing email settings and file paths.
 - Add subscribed feeds either by:
   - maintaing the [feeds config file](https://github.com/fgeller/feeder#example-feeds-config) manually, or
-  - using feeder via `feeder -config cfg.yml -subscribe https://example.com/blog/`
-- Run via `feeder -config cfg.yml` manually, or set up recurring execution, e.g. via `crontab -e`
+  - using feeder via `feeder -subscribe https://example.com/blog/`
+- Run via `feeder` manually, or set up recurring execution, e.g. via `crontab -e`
 - `feeder -help` output:
 ```
 Usage of feeder:
 
   -config string
-        Path to config file (required)
+        Path to config file (default $XDG_CONFIG_HOME/feeder/config.yml)
   -subscribe string
         URL to feed to subscribe to
   -version
