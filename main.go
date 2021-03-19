@@ -83,6 +83,18 @@ func parseTime(raw string) (t time.Time, err error) {
 		return t, nil
 	}
 
+	// time.RFC1123 s/02/2/
+	t, err = time.Parse("Mon, 2 Jan 2006 15:04:05 MST", raw)
+	if err == nil {
+		return t, nil
+	}
+
+	// time.RFC1123 s/02/2/ && s/Jan/January
+	t, err = time.Parse("Mon, 2 January 2006 15:04:05 MST", raw)
+	if err == nil {
+		return t, nil
+	}
+
 	t, err = time.Parse(time.RFC3339, raw)
 	if err == nil {
 		return t, nil
@@ -127,14 +139,14 @@ func (f *RSSFeed) Feed() *Feed {
 	if f.LastBuildDate != "" {
 		cf.Updated, err = parseTime(f.LastBuildDate)
 		if err != nil {
-			log.Fatalf("time parse feed title=%v str=%#v err=%v", f.Title, f.LastBuildDate, err)
+			log.Fatalf("lastBuildDate parse error for feed title=%v str=%#v err=%v", f.Title, f.LastBuildDate, err)
 		}
 	}
 
 	for _, e := range f.Items {
 		et, err := parseTime(e.PubDate)
 		if err != nil {
-			log.Fatalf("time parse str=%#v err=%v", e.PubDate, err)
+			log.Fatalf("pubDate parse error for feed title=%v str=%#v err=%v", f.Title, e.PubDate, err)
 		}
 		ce := &FeedEntry{
 			Title:   e.Title,

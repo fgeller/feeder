@@ -68,6 +68,29 @@ func TestParseDateNoTime(t *testing.T) {
 	require.Equal(t, updated, time.Date(2020, 11, 23, 0, 0, 0, 0, time.UTC))
 }
 
+func TestParseTime(t *testing.T) {
+	cet, err := time.LoadLocation("CET")
+	require.Nil(t, err)
+
+	data := []struct {
+		raw      string
+		expected time.Time
+		err      error
+	}{
+		{
+			raw:      "Mon, 2 March 2020 12:00:00 CET",
+			expected: time.Date(2020, 3, 2, 12, 0, 0, 0, cet),
+			err:      nil,
+		},
+	}
+
+	for _, d := range data {
+		actual, err := parseTime(d.raw)
+		require.Equal(t, d.err, err)
+		require.Equal(t, d.expected.String(), actual.String())
+	}
+}
+
 func TestSubstituteRelativeImageSrc(t *testing.T) {
 	orig := `src="/plus/misc/images/her-soundtrack.jpg"`
 	expected := `src="http://kottke.org/plus/misc/images/her-soundtrack.jpg"`
