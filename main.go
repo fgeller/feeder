@@ -144,6 +144,10 @@ func (f *RSSFeed) Feed() (*Feed, error) {
 	}
 
 	for _, e := range f.Items {
+		if e.PubDate == "" {
+			log.Printf("Ignoring item %#v without pubDate field for feed %#v", e.Title, f.Title)
+			continue
+		}
 		et, err := parseTime(e.PubDate)
 		if err != nil {
 			return nil, fmt.Errorf("pubDate parse error for feed %#v str=%#v err=%w", f.Title, e.PubDate, err)
