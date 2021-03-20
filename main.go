@@ -113,9 +113,9 @@ func parseTime(raw string) (t time.Time, err error) {
 	return t, fmt.Errorf("failed to parse time string %#v", raw)
 }
 
-func (f *RSSFeed) Feed() *Feed {
+func (f *RSSFeed) Feed() (*Feed, error) {
 	if len(f.Links) == 0 {
-		log.Fatalf("missing link on feed %#v", f.Title)
+		return nil, fmt.Errorf("failed to convert rss feed %#v, missing link", f.Title)
 	}
 
 	var id, lk = f.Links[0], f.Links[0] // 🤨
@@ -139,14 +139,14 @@ func (f *RSSFeed) Feed() *Feed {
 	if f.LastBuildDate != "" {
 		cf.Updated, err = parseTime(f.LastBuildDate)
 		if err != nil {
-			log.Fatalf("lastBuildDate parse error for feed title=%v str=%#v err=%v", f.Title, f.LastBuildDate, err)
+			return nil, fmt.Errorf("lastBuildDate parse error for feed %#v str=%#v err=%w", f.Title, f.LastBuildDate, err)
 		}
 	}
 
 	for _, e := range f.Items {
 		et, err := parseTime(e.PubDate)
 		if err != nil {
-			log.Fatalf("pubDate parse error for feed title=%v str=%#v err=%v", f.Title, e.PubDate, err)
+			return nil, fmt.Errorf("pubDate parse error for feed %#v str=%#v err=%w", f.Title, e.PubDate, err)
 		}
 		ce := &FeedEntry{
 			Title:   e.Title,
@@ -157,7 +157,7 @@ func (f *RSSFeed) Feed() *Feed {
 		}
 		cf.Entries = append(cf.Entries, ce)
 	}
-	return cf
+	return cf, nil
 }
 
 type AtomFeed struct {
@@ -169,7 +169,7 @@ type AtomFeed struct {
 	Entries []*AtomEntry `xml:"entry"`
 }
 
-func (f *AtomFeed) Feed() *Feed {
+func (f *AtomFeed) Feed() (*Feed, error) {
 	cf := &Feed{
 		ID:      f.ID,
 		Title:   f.Title,
@@ -197,7 +197,7 @@ func (f *AtomFeed) Feed() *Feed {
 		})
 	}
 
-	return cf
+	return cf, nil
 }
 
 type xmlTime struct {
@@ -336,7 +336,7 @@ func unmarshal(byt []byte) (*Feed, error) {
 
 	err = decoder.Decode(&atom)
 	if err == nil {
-		return (&atom).Feed(), nil
+		return (&atom).Feed()
 	}
 
 	reader = bytes.NewReader(byt)
@@ -345,7 +345,7 @@ func unmarshal(byt []byte) (*Feed, error) {
 
 	err = decoder.Decode(&rss)
 	if err == nil {
-		return (&rss).Feed(), nil
+		return (&rss).Feed()
 	}
 
 	if strings.Contains(err.Error(), "unexpected EOF") {
