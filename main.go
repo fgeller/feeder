@@ -588,9 +588,6 @@ func pickNewData(fs []*Feed, limitPerFeed int, ts map[string]time.Time) []*Feed 
 
 func updateTimestamps(ts map[string]time.Time, nd []*Feed) {
 	for _, f := range nd {
-		if f.Failure != nil { // TODO don't think this is possible?
-			continue
-		}
 		_, ok := ts[f.ID]
 		if !ok {
 			ts[f.ID] = f.Entries[0].Updated
