@@ -90,7 +90,7 @@ func parseTime(raw string) (t time.Time, err error) {
 	}
 
 	// time.RFC1123 s/02/2/ && s/Jan/January
-	t, err = time.Parse("Mon, 2 January 2006 15:04:05 MST", raw)
+	t, err = time.ParseInLocation("Mon, 2 January 2006 15:04:05 MST", raw, time.UTC)
 	if err == nil {
 		return t, nil
 	}

@@ -69,9 +69,6 @@ func TestParseDateNoTime(t *testing.T) {
 }
 
 func TestParseTime(t *testing.T) {
-	cet, err := time.LoadLocation("CET")
-	require.Nil(t, err)
-
 	data := []struct {
 		raw      string
 		expected time.Time
@@ -79,7 +76,7 @@ func TestParseTime(t *testing.T) {
 	}{
 		{
 			raw:      "Mon, 2 March 2020 12:00:00 CET",
-			expected: time.Date(2020, 3, 2, 12, 0, 0, 0, cet),
+			expected: time.Date(2020, 3, 2, 12, 0, 0, 0, time.UTC),
 			err:      nil,
 		},
 	}
@@ -87,7 +84,7 @@ func TestParseTime(t *testing.T) {
 	for _, d := range data {
 		actual, err := parseTime(d.raw)
 		require.Equal(t, d.err, err)
-		require.Equal(t, d.expected.String(), actual.String())
+		require.Equal(t, int64(0), d.expected.Unix()-actual.Unix())
 	}
 }
 
