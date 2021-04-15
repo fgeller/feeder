@@ -78,6 +78,12 @@ func parseTime(raw string) (t time.Time, err error) {
 		return t, nil
 	}
 
+	// time.RFC1123Z s/02/2/
+	t, err = time.Parse("Mon, 2 Jan 2006 15:04:05 -0700", raw)
+	if err == nil {
+		return t, nil
+	}
+
 	t, err = time.Parse(time.RFC1123, raw)
 	if err == nil {
 		return t, nil
@@ -342,6 +348,7 @@ func unmarshal(byt []byte) (*Feed, error) {
 	if err == nil {
 		return (&atom).Feed()
 	}
+	log.Printf("failed to unmarshal as atom feed err=%v", err)
 
 	reader = bytes.NewReader(byt)
 	decoder = xml.NewDecoder(reader)
@@ -351,6 +358,7 @@ func unmarshal(byt []byte) (*Feed, error) {
 	if err == nil {
 		return (&rss).Feed()
 	}
+	log.Printf("failed to unmarshal as rss feed err=%v", err)
 
 	if strings.Contains(err.Error(), "unexpected EOF") {
 		log.Printf("ignoring EOF err=%s", err)
@@ -870,7 +878,8 @@ func subscribe(cfg *Config, fu string) {
 		fc.Name = uf.Title
 		fc.URL = fu
 	} else {
-		log.Printf("could not unmarshal as RSS or Atom, checking for alternate link")
+		log.Printf("could not unmarshal as RSS or Atom err=%v", err)
+		log.Printf("checking for alternate link")
 		fc.Name, fc.URL = findFeedInfo(byt)
 		if fc.Name == "" || fc.URL == "" {
 			log.Fatalf("failed to find both required title and url")
