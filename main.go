@@ -70,6 +70,18 @@ type RSSItem struct {
 	Description string `xml:"description"`
 	GUID        string `xml:"guid"`
 	PubDate     string `xml:"pubDate"`
+
+	pubTime time.Time
+}
+
+func (i *RSSItem) Entry() *FeedEntry {
+	return &FeedEntry{
+		Title:   i.Title,
+		Link:    i.Link,
+		ID:      i.GUID,
+		Updated: i.pubTime,
+		Content: template.HTML(i.Description),
+	}
 }
 
 func parseTime(raw string) (t time.Time, err error) {
@@ -154,18 +166,11 @@ func (f *RSSFeed) Feed() (*Feed, error) {
 			log.Printf("Ignoring item %#v without pubDate field for feed %#v", e.Title, f.Title)
 			continue
 		}
-		et, err := parseTime(e.PubDate)
+		e.pubTime, err = parseTime(e.PubDate)
 		if err != nil {
-			return nil, fmt.Errorf("pubDate parse error for feed %#v str=%#v err=%w", f.Title, e.PubDate, err)
+			return nil, fmt.Errorf("pubDate parse error for feed title=%#v str=%#v err=%w", f.Title, e.PubDate, err)
 		}
-		ce := &FeedEntry{
-			Title:   e.Title,
-			Link:    e.Link,
-			ID:      e.GUID,
-			Updated: et,
-			Content: template.HTML(e.Description),
-		}
-		cf.Entries = append(cf.Entries, ce)
+		cf.Entries = append(cf.Entries, e.Entry())
 	}
 	return cf, nil
 }
@@ -198,13 +203,7 @@ func (f *AtomFeed) Feed() (*Feed, error) {
 		if e.Content == "" && e.MediaGroup != nil {
 			e.Content = e.MediaGroup.HTML()
 		}
-		cf.Entries = append(cf.Entries, &FeedEntry{ // TODO e.Entry() ?
-			Title:   e.Title,
-			Link:    e.Link.HRef,
-			ID:      e.ID,
-			Updated: e.Updated.Time,
-			Content: template.HTML(e.Content),
-		})
+		cf.Entries = append(cf.Entries, e.Entry())
 	}
 
 	return cf, nil
@@ -284,6 +283,16 @@ type AtomEntry struct {
 	ID         string      `xml:"id"`
 	Content    string      `xml:"content"`
 	MediaGroup *MediaGroup `xml:"group"`
+}
+
+func (e *AtomEntry) Entry() *FeedEntry {
+	return &FeedEntry{
+		Title:   e.Title,
+		Link:    e.Link.HRef,
+		ID:      e.ID,
+		Updated: e.Updated.Time,
+		Content: template.HTML(e.Content),
+	}
 }
 
 type MediaGroup struct {
