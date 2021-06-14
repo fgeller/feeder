@@ -6,7 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"html/template"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -474,7 +474,7 @@ type ConfigFeed struct {
 }
 
 func readConfig(fp string) (*Config, error) {
-	bt, err := ioutil.ReadFile(fp)
+	bt, err := os.ReadFile(fp)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read config file: %w", err)
 	}
@@ -523,7 +523,7 @@ func readFeedsConfig(fp string) ([]*ConfigFeed, error) {
 		return []*ConfigFeed{}, nil
 	}
 
-	bt, err := ioutil.ReadFile(fp)
+	bt, err := os.ReadFile(fp)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read feeds config file: %w", err)
 	}
@@ -632,7 +632,7 @@ func readTimestamps(fn string) (map[string]time.Time, error) {
 		return nil, fmt.Errorf("failed to open timestamps file %#v err=%w", fn, err)
 	}
 
-	bt, err = ioutil.ReadAll(fh)
+	bt, err = io.ReadAll(fh)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read timestamps file %#v err=%w", fn, err)
 	}
@@ -658,7 +658,7 @@ func writeTimestamps(fn string, ts map[string]time.Time) error {
 		return fmt.Errorf("failed to marshal timestamps err=%w", err)
 	}
 
-	err = ioutil.WriteFile(fn, bt, 0677)
+	err = os.WriteFile(fn, bt, 0677)
 	if err != nil {
 		return fmt.Errorf("failed to write timestamps file err=%w", err)
 	}
@@ -702,7 +702,7 @@ func readEmailTemplate(fn string) (string, error) {
 		return defaultEmailTemplate, nil
 	}
 
-	bt, err := ioutil.ReadFile(fn)
+	bt, err := os.ReadFile(fn)
 	if err != nil {
 		return "", fmt.Errorf("failed to read email template file %#v err=%w", fn, err)
 	}
@@ -821,7 +821,7 @@ func get(url string) ([]byte, error) {
 		return nil, fmt.Errorf("failed to request url=%s err=%w", url, err)
 	}
 
-	byt, err := ioutil.ReadAll(resp.Body)
+	byt, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read body contents for url=%s err=%w", url, err)
 	}
@@ -928,7 +928,7 @@ func subscribe(cfg *Config, fu string) {
 		log.Fatalf("failed to marshal feeds err=%s", err)
 	}
 
-	err = ioutil.WriteFile(cfg.FeedsFile, bt, 0677)
+	err = os.WriteFile(cfg.FeedsFile, bt, 0677)
 	if err != nil {
 		log.Fatalf("failed to write timestamps file err=%s", err)
 	}

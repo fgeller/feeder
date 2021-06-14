@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"strings"
 	"syscall"
@@ -56,7 +56,7 @@ func TestSystem(t *testing.T) {
   url: https://blog.golang.org/feed.atom
   disabled: false
 `
-	err := ioutil.WriteFile(feedsFile, []byte(feeds), 0677)
+	err := os.WriteFile(feedsFile, []byte(feeds), 0677)
 	require.Nil(t, err)
 
 	var status int

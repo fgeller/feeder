@@ -1,8 +1,8 @@
 package main
 
 import (
-	"io/ioutil"
 	"net/url"
+	"os"
 	"testing"
 	"time"
 
@@ -10,7 +10,7 @@ import (
 )
 
 func TestTakeOnRules(t *testing.T) {
-	byt, err := ioutil.ReadFile("test-data/take-on-rules.atom")
+	byt, err := os.ReadFile("test-data/take-on-rules.atom")
 	require.Nil(t, err)
 
 	f, err := unmarshal(byt)
@@ -20,7 +20,7 @@ func TestTakeOnRules(t *testing.T) {
 }
 
 func TestReddit(t *testing.T) {
-	byt, err := ioutil.ReadFile("test-data/rprogramming.atom")
+	byt, err := os.ReadFile("test-data/rprogramming.atom")
 	require.Nil(t, err)
 
 	feed, err := unmarshal(byt)
@@ -34,7 +34,7 @@ func TestReddit(t *testing.T) {
 }
 
 func TestYouTube(t *testing.T) {
-	byt, err := ioutil.ReadFile("test-data/wandel.xml")
+	byt, err := os.ReadFile("test-data/wandel.xml")
 	require.Nil(t, err)
 
 	feed, err := unmarshal(byt)
@@ -49,7 +49,7 @@ func TestYouTube(t *testing.T) {
 }
 
 func TestNotUtf8(t *testing.T) {
-	byt, err := ioutil.ReadFile("test-data/not-utf8.rss")
+	byt, err := os.ReadFile("test-data/not-utf8.rss")
 	require.Nil(t, err)
 
 	_, err = unmarshal(byt)
@@ -57,7 +57,7 @@ func TestNotUtf8(t *testing.T) {
 }
 
 func TestParseDateNoTime(t *testing.T) {
-	byt, err := ioutil.ReadFile("test-data/date-no-time.rss")
+	byt, err := os.ReadFile("test-data/date-no-time.rss")
 	require.Nil(t, err)
 
 	feed, err := unmarshal(byt)
@@ -97,7 +97,7 @@ func TestSubstituteRelativeImageSrc(t *testing.T) {
 	orig := `src="/plus/misc/images/her-soundtrack.jpg"`
 	expected := `src="http://kottke.org/plus/misc/images/her-soundtrack.jpg"`
 
-	byt, err := ioutil.ReadFile("test-data/kottke-entry.html")
+	byt, err := os.ReadFile("test-data/kottke-entry.html")
 	require.Nil(t, err)
 	require.Contains(t, string(byt), orig, "entry should contain relative url")
 
@@ -110,7 +110,7 @@ func TestSubstituteRelativeAHref(t *testing.T) {
 	orig := `href="/bradfitz"`
 	expected := `href="https://github.com/bradfitz"`
 
-	byt, err := ioutil.ReadFile("test-data/github-entry.html")
+	byt, err := os.ReadFile("test-data/github-entry.html")
 	require.Nil(t, err)
 	require.Contains(t, string(byt), orig, "entry should contain relative url")
 	require.NotContains(t, string(byt), expected, "absolute url should not yet be present")
