@@ -53,7 +53,7 @@ func TestSystem(t *testing.T) {
 
 	feedsFile := "./test-data/feeds.yml"
 	feeds := `- name: The Go Blog
-  url: https://blog.golang.org/feed.atom
+  url: https://blog.golang.org/blog/feed.atom
   disabled: false
 `
 	err := os.WriteFile(feedsFile, []byte(feeds), 0677)
@@ -77,7 +77,7 @@ func TestSystem(t *testing.T) {
 	fs, err := readFeedsConfig("test-data/feeds.yml")
 	require.Nil(t, err)
 	require.Len(t, fs, 1)
-	expected0 := &ConfigFeed{Name: "The Go Blog", URL: "https://blog.golang.org/feed.atom"}
+	expected0 := &ConfigFeed{Name: "The Go Blog", URL: "https://blog.golang.org/blog/feed.atom"}
 	require.Equal(t, expected0, fs[0])
 
 	//
