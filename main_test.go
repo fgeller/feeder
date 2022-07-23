@@ -127,3 +127,164 @@ func TestFileExists(t *testing.T) {
 	require.True(t, fileExists(exists))
 	require.False(t, fileExists(doesNotExist))
 }
+
+func TestPickNewData(t *testing.T) {
+	td := map[string]struct {
+		feeds        []*Feed
+		limitPerFeed int
+		timestamps   map[string]time.Time
+		expected     []*Feed
+	}{
+		"one new entry": {
+			feeds: []*Feed{
+				{
+					Title:   "Test Feed",
+					ID:      "5db01937",
+					Link:    "http://example.com",
+					Updated: time.Date(2022, 07, 23, 1, 2, 3, 0, time.UTC),
+					Entries: []*FeedEntry{
+						{
+							Title:   "Old Entry",
+							Link:    "http://example.com/old",
+							ID:      "5db01937-old",
+							Updated: time.Date(2022, 07, 22, 1, 2, 3, 0, time.UTC),
+						},
+						{
+							Title:   "Latest Hidden Entry",
+							Link:    "http://example.com/new",
+							ID:      "5db01937-new",
+							Updated: time.Date(2022, 07, 23, 1, 2, 3, 0, time.UTC),
+						},
+					},
+				},
+			},
+			limitPerFeed: 1,
+			timestamps: map[string]time.Time{
+				"5db01937": time.Date(2022, 07, 22, 1, 2, 3, 0, time.UTC),
+			},
+			expected: []*Feed{
+				{
+					Title:   "Test Feed",
+					ID:      "5db01937",
+					Link:    "http://example.com",
+					Updated: time.Date(2022, 07, 23, 1, 2, 3, 0, time.UTC),
+					Entries: []*FeedEntry{
+						{
+							Title:   "Latest Hidden Entry",
+							Link:    "http://example.com/new",
+							ID:      "5db01937-new",
+							Updated: time.Date(2022, 07, 23, 1, 2, 3, 0, time.UTC),
+						},
+					},
+				},
+			},
+		},
+		"initial pick is latest entry": {
+			feeds: []*Feed{
+				{
+					Title:   "Test Feed",
+					ID:      "5db01937",
+					Link:    "http://example.com",
+					Updated: time.Date(2022, 07, 23, 1, 2, 3, 0, time.UTC),
+					Entries: []*FeedEntry{
+						{
+							Title:   "Old Entry",
+							Link:    "http://example.com/old",
+							ID:      "5db01937-old",
+							Updated: time.Date(2022, 07, 22, 1, 2, 3, 0, time.UTC),
+						},
+						{
+							Title:   "Latest Hidden Entry",
+							Link:    "http://example.com/new",
+							ID:      "5db01937-new",
+							Updated: time.Date(2022, 07, 23, 1, 2, 3, 0, time.UTC),
+						},
+					},
+				},
+			},
+			limitPerFeed: 1,
+			timestamps:   map[string]time.Time{},
+			expected: []*Feed{
+				{
+					Title:   "Test Feed",
+					ID:      "5db01937",
+					Link:    "http://example.com",
+					Updated: time.Date(2022, 07, 23, 1, 2, 3, 0, time.UTC),
+					Entries: []*FeedEntry{
+						{
+							Title:   "Latest Hidden Entry",
+							Link:    "http://example.com/new",
+							ID:      "5db01937-new",
+							Updated: time.Date(2022, 07, 23, 1, 2, 3, 0, time.UTC),
+						},
+					},
+				},
+			},
+		},
+		"oldest entry first": {
+			feeds: []*Feed{
+				{
+					Title:   "Test Feed",
+					ID:      "5db01937",
+					Link:    "http://example.com",
+					Updated: time.Date(2022, 07, 23, 3, 2, 3, 0, time.UTC),
+					Entries: []*FeedEntry{
+						{
+							Title:   "Entry 3",
+							Link:    "http://example.com/3",
+							ID:      "5db01937-3",
+							Updated: time.Date(2022, 07, 22, 3, 2, 3, 0, time.UTC),
+						},
+						{
+							Title:   "Entry 1",
+							Link:    "http://example.com/1",
+							ID:      "5db01937-1",
+							Updated: time.Date(2022, 07, 22, 1, 2, 3, 0, time.UTC),
+						},
+						{
+							Title:   "Entry 2",
+							Link:    "http://example.com/2",
+							ID:      "5db01937-2",
+							Updated: time.Date(2022, 07, 22, 2, 2, 3, 0, time.UTC),
+						},
+					},
+				},
+			},
+			limitPerFeed: 3,
+			timestamps:   map[string]time.Time{},
+			expected: []*Feed{
+				{
+					Title:   "Test Feed",
+					ID:      "5db01937",
+					Link:    "http://example.com",
+					Updated: time.Date(2022, 07, 23, 3, 2, 3, 0, time.UTC),
+					Entries: []*FeedEntry{
+						{
+							Title:   "Entry 1",
+							Link:    "http://example.com/1",
+							ID:      "5db01937-1",
+							Updated: time.Date(2022, 07, 22, 1, 2, 3, 0, time.UTC),
+						},
+						{
+							Title:   "Entry 2",
+							Link:    "http://example.com/2",
+							ID:      "5db01937-2",
+							Updated: time.Date(2022, 07, 22, 2, 2, 3, 0, time.UTC),
+						},
+						{
+							Title:   "Entry 3",
+							Link:    "http://example.com/3",
+							ID:      "5db01937-3",
+							Updated: time.Date(2022, 07, 22, 3, 2, 3, 0, time.UTC),
+						},
+					},
+				},
+			},
+		},
+	}
+
+	for tn, tc := range td {
+		actual := pickNewData(tc.feeds, tc.limitPerFeed, tc.timestamps)
+		require.Equal(t, tc.expected, actual, tn)
+	}
+}

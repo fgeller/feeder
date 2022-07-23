@@ -13,6 +13,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -590,16 +591,30 @@ func downloadFeeds(cs []*ConfigFeed) ([]*Feed, []*Feed) {
 func pickNewData(fs []*Feed, limitPerFeed int, ts map[string]time.Time) []*Feed {
 	result := []*Feed{}
 	for _, f := range fs {
+		copies := make([]*FeedEntry, len(f.Entries))
+		for i, e := range f.Entries {
+			copies[i] = e.Copy()
+		}
+		sort.Slice(copies, func(i, j int) bool {
+			return copies[i].Updated.After(copies[j].Updated)
+		})
+
 		nf := &Feed{Title: f.Title, ID: f.ID, Link: f.Link, Updated: f.Updated, Entries: []*FeedEntry{}}
 		lt, seen := ts[f.ID]
-		for _, e := range f.Entries {
+
+		for _, e := range copies {
 			if !seen || e.Updated.After(lt) {
-				nf.Entries = append(nf.Entries, e.Copy())
+				nf.Entries = append(nf.Entries, e)
 				if len(nf.Entries) >= limitPerFeed {
 					break
 				}
 			}
 		}
+
+		sort.Slice(nf.Entries, func(i, j int) bool {
+			return nf.Entries[i].Updated.Before(nf.Entries[j].Updated)
+		})
+
 		if len(nf.Entries) > 0 {
 			result = append(result, nf)
 		}
