@@ -356,7 +356,6 @@ type MediaStatistics struct {
 }
 
 func unmarshal(byt []byte) (*Feed, error) {
-	var err error
 	var atom AtomFeed
 	var rss RSSFeed
 
@@ -364,28 +363,28 @@ func unmarshal(byt []byte) (*Feed, error) {
 	decoder := xml.NewDecoder(reader)
 	decoder.CharsetReader = charset.NewReaderLabel
 
-	err = decoder.Decode(&atom)
-	if err == nil {
+	aerr := decoder.Decode(&atom)
+	if aerr == nil {
 		return (&atom).Feed()
 	}
-	log.Printf("failed to unmarshal as atom feed err=%v", err)
 
 	reader = bytes.NewReader(byt)
 	decoder = xml.NewDecoder(reader)
 	decoder.CharsetReader = charset.NewReaderLabel
 
-	err = decoder.Decode(&rss)
-	if err == nil {
+	rerr := decoder.Decode(&rss)
+	if rerr == nil {
 		return (&rss).Feed()
 	}
-	log.Printf("failed to unmarshal as rss feed err=%v", err)
 
-	if strings.Contains(err.Error(), "unexpected EOF") {
-		log.Printf("ignoring EOF err=%s", err)
+	log.Printf("failed to unmarshal feed for atom err=%v for rss err=%v", aerr, rerr)
+
+	if strings.Contains(rerr.Error(), "unexpected EOF") {
+		log.Printf("ignoring EOF err=%s", rerr)
 		return nil, nil
 	}
 
-	return nil, err
+	return nil, rerr
 }
 
 type FeederFlags struct {
