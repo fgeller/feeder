@@ -597,29 +597,54 @@ func sendEmail(cfg ConfigEmail, body string) error {
 	return d.DialAndSend(m)
 }
 
+func downloadFeed(cfg *Config, fc *ConfigFeed) (*Feed, error) {
+	rf, err := get(cfg, fc.URL)
+	if err != nil {
+		return nil, err
+	}
+
+	return unmarshal(rf)
+}
+
 func downloadFeeds(cfg *Config, cs []*ConfigFeed) ([]*Feed, []*Feed) {
-	succs := []*Feed{}
-	fails := []*Feed{}
+	started := 0
+	disabled := 0
+	succ := make(chan *Feed)
+	fail := make(chan *Feed)
+
 	for _, fc := range cs {
 		if fc.Disabled {
+			disabled += 1
 			continue
 		}
 
-		rf, err := get(cfg, fc.URL)
-		if err != nil {
-			fails = append(fails, &Feed{Title: fc.Name, Link: fc.URL, Failure: err})
-			continue
-		}
-
-		uf, err := unmarshal(rf)
-		if err != nil {
-			fails = append(fails, &Feed{Title: fc.Name, Link: fc.URL, Failure: err})
-			continue
-		}
-
-		succs = append(succs, uf)
+		go func(fc *ConfigFeed) {
+			f, err := downloadFeed(cfg, fc)
+			if err != nil {
+				fail <- &Feed{Title: fc.Name, Link: fc.URL, Failure: err}
+				return
+			}
+			succ <- f
+		}(fc)
+		started += 1
 	}
-	return succs, fails
+
+	log.Printf("downloading %v feeds in parallel, %v disabled.", started, disabled)
+
+	succs := []*Feed{}
+	fails := []*Feed{}
+	for {
+		if started == len(succs)+len(fails) {
+			return succs, fails
+		}
+
+		select {
+		case s := <-succ:
+			succs = append(succs, s)
+		case f := <-fail:
+			fails = append(fails, f)
+		}
+	}
 }
 
 func pickNewData(fs []*Feed, limitPerFeed int, ts map[string]time.Time) []*Feed {
