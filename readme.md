@@ -7,6 +7,7 @@ Aggregates news feed updates and sends them to your email inbox.
 - Uses Golang [html/template](https://golang.org/pkg/html/template/#pkg-overview) to customize the email body.
 - Update timestamps persisted to YAML file.
 - Optionally resolves relative URLs
+- Optionally uses Reddit bearer token to request RSS feeds
 
 ## Usage
 
@@ -47,12 +48,17 @@ at the given URL and persists the augmented feeds config.
 
 - `max-entries-per-feed` is the maximum number of entries to send per feed.
 
+- `reddit` allows configuring `client-id` and `client-secret` so feeder can request and use a bearer token for Reddit RSS feeds.
+
 ### Example Config
 
 ```yaml
 feeds-file: '/home/fgeller/.config/feeder/feeds.yml'
 timestamp-file: '/home/fgeller/.config/feeder/timestamps.yml'
 email-template-file: '/home/fgeller/.config/feeder/email.tmpl'
+reddit:
+  client-secret: some-secret-characters
+  client-id: some-id-characters
 email:
   from: example@gmail.com
   smtp:
@@ -68,7 +74,7 @@ email:
 - name: 'irreal'
   url: https://irreal.org/blog/?feed=rss2
 - name: The Go Blog
-  url: https://blog.golang.org/feed.atom
+  url: https://blog.golang.org/blog/feed.atom
 ```
 
 ## Alternatives

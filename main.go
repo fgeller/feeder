@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"encoding/base64"
+	"encoding/json"
 	"encoding/xml"
 	"flag"
 	"fmt"
@@ -13,6 +15,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -24,8 +27,15 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+const AppVersion = "2.0.0"
+
+var buildVersion = ""
+var buildTime = ""
+
 // UserAgent to be used in http requests
-const UserAgent = "feeder"
+var UserAgent = fmt.Sprintf("com.github.fgeller.feeder:%s", AppVersion)
+
+var rxReddit = regexp.MustCompile(`http.+reddit.com/r/.+`)
 
 // Feed represents a downloaded news feed
 type Feed struct {
@@ -448,17 +458,34 @@ func fileExists(path string) bool {
 }
 
 type Config struct {
-	TimestampFile       string      `yaml:"timestamp-file"`
-	EmailTemplateFile   string      `yaml:"email-template-file"`
-	FeedsFile           string      `yaml:"feeds-file"`
-	Email               ConfigEmail `yaml:"email"`
-	MaxEntriesPerFeed   int         `yaml:"max-entries-per-feed"`
-	ReplaceRelativeURLs bool        `yaml:"replace-relative-urls"`
+	TimestampFile       string       `yaml:"timestamp-file"`
+	EmailTemplateFile   string       `yaml:"email-template-file"`
+	FeedsFile           string       `yaml:"feeds-file"`
+	Email               ConfigEmail  `yaml:"email"`
+	MaxEntriesPerFeed   int          `yaml:"max-entries-per-feed"`
+	ReplaceRelativeURLs bool         `yaml:"replace-relative-urls"`
+	Reddit              ConfigReddit `yaml:"reddit"`
 }
 
 type ConfigEmail struct {
 	From string     `yaml:"from"`
 	SMTP ConfigSMTP `yaml:"smtp"`
+}
+
+type ConfigReddit struct {
+	ClientID     string `yaml:"client-id"`
+	ClientSecret string `yaml:"client-secret"`
+	bearerToken  string
+}
+
+func (cr ConfigReddit) IsValid() bool {
+	if strings.TrimSpace(cr.ClientID) == "" {
+		return false
+	}
+	if strings.TrimSpace(cr.ClientSecret) == "" {
+		return false
+	}
+	return true
 }
 
 type ConfigSMTP struct {
@@ -515,6 +542,14 @@ func readConfig(fp string) (*Config, error) {
 		cf.MaxEntriesPerFeed = 3
 	}
 
+	if cf.Reddit.IsValid() {
+		cf.Reddit.bearerToken, err = getRedditBearerToken(cf.Reddit)
+		if err != nil {
+			cf.Reddit.bearerToken = ""
+			log.Printf("failed to retrieve reddit bearer token err=%v", err)
+		}
+	}
+
 	return &cf, err
 }
 
@@ -563,7 +598,7 @@ func sendEmail(cfg ConfigEmail, body string) error {
 	return d.DialAndSend(m)
 }
 
-func downloadFeeds(cs []*ConfigFeed) ([]*Feed, []*Feed) {
+func downloadFeeds(cfg *Config, cs []*ConfigFeed) ([]*Feed, []*Feed) {
 	succs := []*Feed{}
 	fails := []*Feed{}
 	for _, fc := range cs {
@@ -571,7 +606,7 @@ func downloadFeeds(cs []*ConfigFeed) ([]*Feed, []*Feed) {
 			continue
 		}
 
-		rf, err := get(fc.URL)
+		rf, err := get(cfg, fc.URL)
 		if err != nil {
 			fails = append(fails, &Feed{Title: fc.Name, Link: fc.URL, Failure: err})
 			continue
@@ -823,14 +858,59 @@ func countEntries(fs []*Feed) int {
 	return c
 }
 
-func get(url string) ([]byte, error) {
-	req, err := http.NewRequest("GET", url, nil)
+func getRedditBearerToken(cfg ConfigReddit) (string, error) {
+	req, err := http.NewRequest(
+		http.MethodPost,
+		"https://www.reddit.com/api/v1/access_token",
+		strings.NewReader(`grant_type=client_credentials`),
+	)
+	if err != nil {
+		return "", fmt.Errorf("failed to create request for reddit bearer token err=%w", err)
+	}
+
+	creds := fmt.Sprintf("%s:%s", cfg.ClientID, cfg.ClientSecret)
+	auth := base64.URLEncoding.EncodeToString([]byte(creds))
+	req.Header.Add("Authorization", fmt.Sprintf("Basic %s", auth))
+	req.Header.Add("User-Agent", UserAgent)
+
+	client := &http.Client{
+		Timeout: 30 * time.Second,
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("failed to request reddit bearer token err=%w", err)
+	}
+
+	var tok struct {
+		AccessToken string `json:"access_token"`
+	}
+	err = json.NewDecoder(resp.Body).Decode(&tok)
+	if err != nil {
+		return "", fmt.Errorf("failed to decode reddit response err=%w", err)
+	}
+
+	log.Printf("successfully requested reddit bearer token")
+
+	return tok.AccessToken, nil
+}
+
+func get(cfg *Config, url string) ([]byte, error) {
+	client := &http.Client{
+		Timeout: 30 * time.Second,
+	}
+
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request for url=%s err=%w", url, err)
 	}
+
+	if cfg.Reddit.bearerToken != "" && rxReddit.MatchString(url) {
+		req.Header.Add("Authorization", fmt.Sprintf("bearer %s", cfg.Reddit.bearerToken))
+	}
+
 	req.Header.Add("User-Agent", UserAgent)
 
-	client := http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to request url=%s err=%w", url, err)
@@ -890,7 +970,7 @@ func getAttr(n *html.Node, name string) string {
 
 func subscribe(cfg *Config, fu string) {
 	log.Printf("downloading feed %#v\n", fu)
-	byt, err := get(fu)
+	byt, err := get(cfg, fu)
 	if err != nil {
 		log.Fatalf("failed get feed err=%s", err)
 	}
@@ -969,7 +1049,7 @@ func feed(cfg *Config) {
 	failOnErr(cfg, err)
 	log.Printf("read feeds config: %v feeds.", len(fs))
 
-	succs, fails = downloadFeeds(fs)
+	succs, fails = downloadFeeds(cfg, fs)
 	log.Printf("downloaded %v feeds successfully, %v failures\n", len(succs), len(fails))
 
 	nd = pickNewData(succs, cfg.MaxEntriesPerFeed, ts)
@@ -1058,8 +1138,3 @@ func main() {
 
 	feed(cfg)
 }
-
-const AppVersion = "2.0.0"
-
-var buildVersion = ""
-var buildTime = ""
