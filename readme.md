@@ -2,7 +2,7 @@
 
 Aggregates news feed updates and sends them to your email inbox.
 
-- Supports Atom and RSS feeds.
+- Supports Atom and RSS/RDF feeds.
 - Supports subscribing to feed URL directly, or scanning for a `link` tag at a given URL.
 - Uses Golang [html/template](https://golang.org/pkg/html/template/#pkg-overview) to customize the email body.
 - Update timestamps persisted to YAML file.
