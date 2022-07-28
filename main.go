@@ -186,6 +186,51 @@ func (f *RSSFeed) Feed() (*Feed, error) {
 	return cf, nil
 }
 
+type RDFFeed struct {
+	XMLName xml.Name    `xml:"RDF"`
+	Channel *RDFChannel `xml:"channel"`
+	Items   []*RDFItem  `xml:"item"`
+}
+
+func (f *RDFFeed) Feed() (*Feed, error) {
+	cf := &Feed{
+		ID:      f.Channel.Link,
+		Link:    f.Channel.Link,
+		Title:   f.Channel.Title,
+		Updated: f.Channel.Date.Time,
+		Entries: []*FeedEntry{},
+	}
+
+	for _, i := range f.Items {
+		cf.Entries = append(cf.Entries, i.Entry())
+	}
+
+	return cf, nil
+}
+
+type RDFChannel struct {
+	Title string  `xml:"title"`
+	Link  string  `xml:"link"`
+	Date  xmlTime `xml:"date"`
+}
+
+type RDFItem struct {
+	Title       string  `xml:"title"`
+	Link        string  `xml:"link"`
+	Date        xmlTime `xml:"date"`
+	Description string  `xml:"description"`
+}
+
+func (i *RDFItem) Entry() *FeedEntry {
+	return &FeedEntry{
+		Title:   i.Title,
+		Link:    i.Link,
+		ID:      i.Link,
+		Updated: i.Date.Time,
+		Content: template.HTML(i.Description),
+	}
+}
+
 type AtomFeed struct {
 	XMLName xml.Name     `xml:"feed"`
 	Title   string       `xml:"title"`
@@ -357,34 +402,43 @@ type MediaStatistics struct {
 
 func unmarshal(byt []byte) (*Feed, error) {
 	var atom AtomFeed
-	var rss RSSFeed
-
 	reader := bytes.NewReader(byt)
 	decoder := xml.NewDecoder(reader)
 	decoder.CharsetReader = charset.NewReaderLabel
 
-	aerr := decoder.Decode(&atom)
-	if aerr == nil {
+	atomErr := decoder.Decode(&atom)
+	if atomErr == nil {
 		return (&atom).Feed()
 	}
 
+	var rss RSSFeed
 	reader = bytes.NewReader(byt)
 	decoder = xml.NewDecoder(reader)
 	decoder.CharsetReader = charset.NewReaderLabel
 
-	rerr := decoder.Decode(&rss)
-	if rerr == nil {
+	rssErr := decoder.Decode(&rss)
+	if rssErr == nil {
 		return (&rss).Feed()
 	}
 
-	log.Printf("failed to unmarshal feed for atom err=%v for rss err=%v", aerr, rerr)
+	var rdf RDFFeed
+	reader = bytes.NewReader(byt)
+	decoder = xml.NewDecoder(reader)
+	decoder.CharsetReader = charset.NewReaderLabel
 
-	if strings.Contains(rerr.Error(), "unexpected EOF") {
-		log.Printf("ignoring EOF err=%s", rerr)
+	rdfErr := decoder.Decode(&rdf)
+	if rdfErr == nil {
+		return (&rdf).Feed()
+	}
+
+	log.Printf("failed to unmarshal feed for atom err=[%v] for rss err=[%v] for rdf err=[%v]", atomErr, rssErr, rdfErr)
+
+	if strings.Contains(rdfErr.Error(), "unexpected EOF") {
+		log.Printf("ignoring EOF err=%s", rdfErr)
 		return nil, nil
 	}
 
-	return nil, rerr
+	return nil, rdfErr
 }
 
 type FeederFlags struct {

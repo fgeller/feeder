@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns="http://purl.org/rss/1.0/"
+	xmlns:admin="http://webns.net/mvcb/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:syn="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+	>
+
+  <channel rdf:about="https://slashdot.org/">
+	<title>Slashdot</title>
+	<link>https://slashdot.org/</link>
+	<description>News for nerds, stuff that matters</description>
+	<dc:language>en-us</dc:language>
+	<dc:rights>Copyright 1997-2016, SlashdotMedia. All Rights Reserved.</dc:rights>
+	<dc:date>2022-07-28T10:52:17+00:00</dc:date>
+	<dc:publisher>Dice</dc:publisher>
+	<dc:creator>help@slashdot.org</dc:creator>
+	<dc:subject>Technology</dc:subject>
+	<syn:updateBase>1970-01-01T00:00+00:00</syn:updateBase>
+	<syn:updateFrequency>1</syn:updateFrequency>
+	<syn:updatePeriod>hourly</syn:updatePeriod>
+	<items>
+	  <rdf:Seq>
+		<rdf:li rdf:resource="https://yro.slashdot.org/story/22/07/27/2124200/charter-told-to-pay-73-billion-in-damages-after-cable-installer-murders-grandmother?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://science.slashdot.org/story/22/07/27/235236/nasa-is-planning-to-find-aliens-using-spacetime-warped-around-the-sun?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://science.slashdot.org/story/22/07/27/2242203/oldest-patient-yet-cure-of-hiv-after-stem-cell-transplant?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://it.slashdot.org/story/22/07/27/2230207/average-data-breach-costs-hit-a-record-44-million-report-says?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://tech.slashdot.org/story/22/07/27/2146251/google-is-adding-flyover-like-aerial-views-to-maps?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://tech.slashdot.org/story/22/07/27/2140224/stop-trying-to-be-tiktok-user-backlash-over-instagram-changes?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://hardware.slashdot.org/story/22/07/27/2129259/siemens-new-home-ev-charger-adapter-ends-need-for-electrical-panel-upgrades?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://meta.slashdot.org/story/22/07/27/2259221/metas-revenue-shrank-for-the-first-time-in-its-history?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://yro.slashdot.org/story/22/07/27/2116200/googles-nest-will-provide-data-to-police-without-a-warrant?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://developers.slashdot.org/story/22/07/27/2110246/protestware-on-the-rise-why-developers-are-sabotaging-their-own-code?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://news.slashdot.org/story/22/07/27/1911252/james-lovelock-creator-of-gaia-hypothesis-dies-on-103rd-birthday?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://tech.slashdot.org/story/22/07/27/175226/inside-tiktoks-attempts-to-downplay-the-china-association?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://tech.slashdot.org/story/22/07/27/1853224/google-delays-when-chrome-will-phase-out-third-party-cookies-to-2024?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://news.slashdot.org/story/22/07/27/1841224/senate-passes-280-billion-industrial-policy-bill-to-counter-china?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+		<rdf:li rdf:resource="https://news.slashdot.org/story/22/07/27/1831234/fed-raises-rates-by-75-basis-points-to-clamp-down-on-inflation?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed" />
+	  </rdf:Seq>
+	</items>
+	<image rdf:resource="https://a.fsdn.com/sd/topics/topicslashdot.gif" />
+	<textinput rdf:resource="https://slashdot.org/search.pl" />
+  </channel>
+  <image rdf:about="https://a.fsdn.com/sd/topics/topicslashdot.gif">
+	<title>Slashdot</title>
+	<url>https://a.fsdn.com/sd/topics/topicslashdot.gif</url>
+	<link>https://slashdot.org/</link>
+  </image>
+  <item rdf:about="https://yro.slashdot.org/story/22/07/27/2124200/charter-told-to-pay-73-billion-in-damages-after-cable-installer-murders-grandmother?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+	<title>Charter Told To Pay $7.3 Billion In Damages After Cable Installer Murders Grandmother</title>
+	<link>https://yro.slashdot.org/story/22/07/27/2124200/charter-told-to-pay-73-billion-in-damages-after-cable-installer-murders-grandmother?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+	<description>Charter Communications must pay out $7 billion in damages after one of its Spectrum cable technicians robbed and killed an elderly woman, a jury decided Tuesday. The Register reports: Betty Thomas, 83, was stabbed to death by Roy Holden Jr in December 2019. He had dropped by her home in Irving, Texas, on a service call after she reported a problem with her internet-TV bundle, and returned the next day in his company uniform and van, inviting himself in and killing her using his Spectrum-issued gloves and utility knife. She was found dead by her family on her living room floor after she didn't show up to a Christmas and birthday party that night. Holden pleaded guilty to murder last year and was sentenced to life behind in bars.
+	
+	Thomas' family sued Charter [PDF] in 2020 for negligence. It was alleged in testimony that Holden had complained to his bosses that he was penniless and desperate after a divorce. It was further alleged that he had stolen credit cards and checks from elderly Spectrum subscribers, and that the corporation turned a blind eye to a pattern of theft by its installers and technicians. During that civil trial it was also claimed Thomas' family was charged $58 for Holden's service call, and continued to be billed after their grandmother's brutal slaying to the point where her account was sent to collections.
+	
+	The court heard how Holden was not working the day he killed Thomas, and went out to her home anyway to rob her. He was able to use his company keycard to access a Charter vehicle lot and drive off in one of its service vans even though he was off-duty. According to the family's legal team, while Holden was seemingly making repairs, he tried to steal one or more of her bank cards from her purse, and murdered her when he was caught in the act. He later went on a spending spree with her funds, it was claimed. "This was a shocking breach of faith by a company that sends workers inside millions of homes every year," said the one of family's trial lawyers Chris Hamilton, of Dallas-based Hamilton Wingo, in a statement.
+	
+	According to the law firm, Holden lied about his employment history -- such as not revealing he had been previously fired -- which wasn't checked by Charter when it hired him and would have been one of many red flags against him. During the civil trial, the court heard how Holden would break down crying at work, at one point was convinced he was a former Dallas Cowboys football player, suffered from insomnia, and was probably sleeping overnight in his Spectrum van. It was further claimed the cable giant tried to force the lawsuit into closed-door arbitration where the results would have been secret and damages limited.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+	&lt;a class="slashpop" href="http://twitter.com/home?status=Charter+Told+To+Pay+%247.3+Billion+In+Damages+After+Cable+Installer+Murders+Grandmother%3A+https%3A%2F%2Fbit.ly%2F3S4i7nD"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+	&lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fyro.slashdot.org%2Fstory%2F22%2F07%2F27%2F2124200%2Fcharter-told-to-pay-73-billion-in-damages-after-cable-installer-murders-grandmother%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+	&lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://yro.slashdot.org/story/22/07/27/2124200/charter-told-to-pay-73-billion-in-damages-after-cable-installer-murders-grandmother?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793162&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+	<dc:creator>BeauHD</dc:creator>
+	<dc:date>2022-07-28T10:00:00+00:00</dc:date>
+	<dc:subject>crime</dc:subject>
+	<slash:department>Jason-the-cable-guy</slash:department>
+	<slash:section>yro</slash:section>
+	<slash:comments>8</slash:comments>
+	<slash:hit_parade>8,8,8,8,2,1,1</slash:hit_parade>
+  </item>
+  <item rdf:about="https://science.slashdot.org/story/22/07/27/235236/nasa-is-planning-to-find-aliens-using-spacetime-warped-around-the-sun?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+	<title>NASA Is Planning To Find Aliens Using Spacetime Warped Around the Sun</title>
+	<link>https://science.slashdot.org/story/22/07/27/235236/nasa-is-planning-to-find-aliens-using-spacetime-warped-around-the-sun?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+	<description>What if we glimpsed alien life for the first time by peering through a natural telescope made by the Sun's gravity? This wild idea, known as a solar gravitational lens (SGL) mission, may sound like an Einsteinian fever dream, but scientists have now found that it is "feasible with technologies that are either extant or in active development," according to a new study. Motherboard reports: Researchers led by Henry Helvajian, senior scientist in the Physical Sciences Laboratories at the nonprofit research center The Aerospace Corporation, have now shared the initial results of this ongoing NIAC study on the preprint server arxiv, which have not been peer-reviewed. Though the team cautioned that the mission would need to overcome several technical challenges, it could ultimately answer one of humanity's most fundamental questions: Are we alone in the universe?
+	
+	"The SGL offers capabilities that are unmatched by any planned or conceivable optical instrument," according to the study, which was co-authored by Slava Turyshev, a scientist at NASA's Jet Propulsion Laboratory and principal investigator of the NIAC mission concept. "With its unique optical properties, the SGL can be used to obtain detailed, high resolution images of Earth-like exoplanets as far as 100 light years from Earth, with measurement durations lasting months, or at most a few years." "Of particular interest is the possibility of using the SGL to obtain images of high spatial and spectral resolution of a yet-to-be-identified, potentially life-bearing exoplanet in another solar system in our Galactic neighborhood," the researchers added. "The direct high-resolution images of an exoplanet obtained with the SGL could lead to insight on the on-going biological processes on the target exoplanet and find signs of habitability."
+	
+	The focal point of the Sun's gravitational lens is located all the way out in interstellar space, some 550 and 900 times the distance that Earth orbits our star, which is much farther than any spacecraft has ventured beyond our planet. Helvajian and his colleagues envision their mission as consisting of a one-meter telescope that is accompanied by a sunshade and propelled by solar sails that produce thrust by capturing solar radiation, in a somewhat analogous fashion to wind-propelled sails. Even if they were able to overcome the technical hurdles involved with this concept -- which include the development of more reliable solar sails and long-duration navigation and communications systems -- the team estimated that it would take at least 25 to 30 years for a spacecraft to reach this far-flung location, in the best case scenario. That said, if a telescope were able to spot alien life, arguably the biggest breakthrough in science, it would be well worth the long wait.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+	&lt;a class="slashpop" href="http://twitter.com/home?status=NASA+Is+Planning+To+Find+Aliens+Using+Spacetime+Warped+Around+the+Sun%3A+https%3A%2F%2Fbit.ly%2F3oyPfpZ"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+	&lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fscience.slashdot.org%2Fstory%2F22%2F07%2F27%2F235236%2Fnasa-is-planning-to-find-aliens-using-spacetime-warped-around-the-sun%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+	&lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://science.slashdot.org/story/22/07/27/235236/nasa-is-planning-to-find-aliens-using-spacetime-warped-around-the-sun?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793322&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+	<dc:creator>BeauHD</dc:creator>
+	<dc:date>2022-07-28T07:00:00+00:00</dc:date>
+	<dc:subject>space</dc:subject>
+	<slash:department>unmatched-capabilities</slash:department>
+	<slash:section>science</slash:section>
+	<slash:comments>36</slash:comments>
+	<slash:hit_parade>36,35,28,27,5,3,1</slash:hit_parade>
+  </item>
+  <item rdf:about="https://science.slashdot.org/story/22/07/27/2242203/oldest-patient-yet-cure-of-hiv-after-stem-cell-transplant?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+	<title>Oldest Patient Yet Cure of HIV After Stem Cell Transplant</title>
+	<link>https://science.slashdot.org/story/22/07/27/2242203/oldest-patient-yet-cure-of-hiv-after-stem-cell-transplant?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+	<description>An anonymous reader quotes a report from Reuters: The oldest patient yet has been cured of HIV after receiving a stem cell transplant for leukaemia, researchers reported on Wednesday. While the transplant was planned to treat the now-66-year-old's leukaemia, the doctors also sought a donor who was naturally resistant to the virus that causes AIDS, a mechanism that first worked to cure the "Berlin patient," Timothy Ray Brown, in 2007.
+	
+	The latest patient, the fourth to be cured in this way, is known as the "City of Hope" patient after the U.S. facility in Duarte, California, where he was treated, because he does not want to be identified. As well as being the oldest, the patient has also had HIV the longest, having been diagnosed in 1988 with what he described as a "death sentence" that killed many of his friends. He has been on antiretroviral therapy (ART) to control his condition for more than 30 years. [...] Scientists think the process works because the donor individual's stem cells have a specific, rare genetic mutation which means they lack the receptors used by HIV to infect cells. "Scientists think the process works because the donor individual's stem cells have a specific, rare genetic mutation which means they lack the receptors used by HIV to infect cells," adds Reuters.
+	
+	"After the transplant three and a half years ago, which followed chemotherapy, the City of Hope patient stopped taking ART in March 2021. He has now been in remission from both HIV and leukaemia for more than a year, the team said."
+	
+	Researchers in Spain also presented a case of a 59-year-old woman who is considered to be in a state of viral remission. "She has now maintained a fully suppressed viral load for over 15 years," reports NBC News. "Unlike the handful of people either cured or possibly cured by stem cell transplants, however, she still harbors virus that is capable of producing viable new copies of itself. Her body has actually controlled the virus more efficiently with the passing years, according to Dr. Juan Ambrosioni, an HIV physician in the Barcelona clinic."&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+	&lt;a class="slashpop" href="http://twitter.com/home?status=Oldest+Patient+Yet+Cure+of+HIV+After+Stem+Cell+Transplant%3A+https%3A%2F%2Fbit.ly%2F3bduZHC"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+	&lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fscience.slashdot.org%2Fstory%2F22%2F07%2F27%2F2242203%2Foldest-patient-yet-cure-of-hiv-after-stem-cell-transplant%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+	&lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://science.slashdot.org/story/22/07/27/2242203/oldest-patient-yet-cure-of-hiv-after-stem-cell-transplant?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793288&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+	<dc:creator>BeauHD</dc:creator>
+	<dc:date>2022-07-28T03:30:00+00:00</dc:date>
+	<dc:subject>medicine</dc:subject>
+	<slash:department>medical-advances</slash:department>
+	<slash:section>science</slash:section>
+	<slash:comments>36</slash:comments>
+	<slash:hit_parade>36,36,23,19,2,1,1</slash:hit_parade>
+  </item>
+  <item rdf:about="https://it.slashdot.org/story/22/07/27/2230207/average-data-breach-costs-hit-a-record-44-million-report-says?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+	<title>Average Data Breach Costs Hit a Record $4.4 Million, Report Says</title>
+	<link>https://it.slashdot.org/story/22/07/27/2230207/average-data-breach-costs-hit-a-record-44-million-report-says?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+	<description>The average cost of a data breach rose to an all-time high of $4.4 million this year, according to the IBM Security report released Wednesday. That marked a 2.6% increase from a year ago and a 13% jump since 2020. CNET reports: More than half of the organizations surveyed acknowledged they had passed on those costs to their customers in the form of higher prices for their products and services, IBM said. The annual report is based on an analysis of data breaches experienced by 550 organizations around the world between March 2021 and March 2022. The research, which was sponsored and analyzed by IBM, was conducted by the Ponemon Institute.
+	
+	The cost estimates are based on both immediate and longer-term expenses. While some costs like the payment of ransoms and those related to investigating and containing the breach tend to be accounted for right away, others such as regulatory fines and lost sales can show up years later. On average, those polled said they accrued just under half of the costs related to a given breach more than a year after it occurred.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+	&lt;a class="slashpop" href="http://twitter.com/home?status=Average+Data+Breach+Costs+Hit+a+Record+%244.4+Million%2C+Report+Says%3A+https%3A%2F%2Fbit.ly%2F3oAUrK4"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+	&lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fit.slashdot.org%2Fstory%2F22%2F07%2F27%2F2230207%2Faverage-data-breach-costs-hit-a-record-44-million-report-says%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+	&lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://it.slashdot.org/story/22/07/27/2230207/average-data-breach-costs-hit-a-record-44-million-report-says?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793262&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+	<dc:creator>BeauHD</dc:creator>
+	<dc:date>2022-07-28T02:02:00+00:00</dc:date>
+	<dc:subject>security</dc:subject>
+	<slash:department>rising-costs</slash:department>
+	<slash:section>it</slash:section>
+	<slash:comments>11</slash:comments>
+	<slash:hit_parade>11,11,10,8,2,1,0</slash:hit_parade>
+  </item>
+  <item rdf:about="https://tech.slashdot.org/story/22/07/27/2146251/google-is-adding-flyover-like-aerial-views-to-maps?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+	<title>Google Is Adding Flyover-Like Aerial Views To Maps</title>
+	<link>https://tech.slashdot.org/story/22/07/27/2146251/google-is-adding-flyover-like-aerial-views-to-maps?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+	<description>Google is adding "photorealistic aerial views" to almost 100 landmarks in Google Maps, the company announced on Wednesday. The Verge reports: The views, which remind me of Apple Maps' Flyover feature, give you an overhead look at landmarks in cities including Barcelona, London, New York, San Francisco, and Tokyo, according to Google. The aerial views are a "first step" toward launching the "immersive view" the company showed off at Google I/O, according to a blog post from Google Maps director of product Amanda Leicht Moore. Immersive view will also include indoor views and information like traffic and the weather layered on the map, Google spokesperson Genevieve Park tells The Verge. At I/O, Google said immersive view would begin rolling out in Los Angeles, London, New York City, San Francisco, and Tokyo "later this year." Google Maps will also feature cycling routes, which will include additional information "like whether a specific road you'll be instructed to travel on is a major or minor road, if your route includes stairs or steep hills, and whether you can expect to hit heavy traffic," reports The Verge. Additionally, you'll be able to get notifications if someone who is sharing their location with you leaves or arrives at their location.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+	&lt;a class="slashpop" href="http://twitter.com/home?status=Google+Is+Adding+Flyover-Like+Aerial+Views+To+Maps%3A+https%3A%2F%2Fbit.ly%2F3cMber3"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+	&lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Ftech.slashdot.org%2Fstory%2F22%2F07%2F27%2F2146251%2Fgoogle-is-adding-flyover-like-aerial-views-to-maps%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+	&lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://tech.slashdot.org/story/22/07/27/2146251/google-is-adding-flyover-like-aerial-views-to-maps?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793202&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+	<dc:creator>BeauHD</dc:creator>
+	<dc:date>2022-07-28T01:25:00+00:00</dc:date>
+	<dc:subject>google</dc:subject>
+	<slash:department>new-and-improved</slash:department>
+	<slash:section>technology</slash:section>
+	<slash:comments>4</slash:comments>
+	<slash:hit_parade>4,4,3,2,0,0,0</slash:hit_parade>
+  </item>
+  <item rdf:about="https://tech.slashdot.org/story/22/07/27/2140224/stop-trying-to-be-tiktok-user-backlash-over-instagram-changes?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+	<title>'Stop Trying To Be TikTok': User Backlash Over Instagram Changes</title>
+	<link>https://tech.slashdot.org/story/22/07/27/2140224/stop-trying-to-be-tiktok-user-backlash-over-instagram-changes?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+	<description>Instagram's head defended the app against a user backlash, after the social network launched a series of changes intended to make it more like its arch-rival TikTok. The Guardian reports: The changes, which include an extremely algorithmic main feed, a push for the service's TikTok-style "reels" videos, and heavy promotion of the TikTok-style "remix" feature, have resulted in users struggling to find content from friends and family, once the bread and butter of the social network. "We're hearing a lot of concerns from all of you," Adam Mosseri said in a video posted to Twitter. "I'm hearing a lot of concerns about photos, and how we're shifting to video. We're going to continue to support photos, but I need to be honest: more and more of Instagram is going to become video over time. We're going to have to lean in to that shift while continuing to support photos."
+	
+	The Instagram boss also defended the platform's new "recommendations" feature, which puts content from people users do not follow on to their feed. "The idea is to help you discover new and interesting things on Instagram that you might not even know exist," he said. "You can snooze all recommendations for up to a month, but we're going to try and get better at recommendations because we think it's one of the best ways to help creators reach a new audience and grow their following. He added: "We're going to need to evolve, because the world is changing quickly and we're going to need to change with it."
+	
+	Instagram's makeover is widely seen as a response to TikTok's continued growth, in particular among younger American users. [...] By boosting algorithmic recommendations, allowing users to "remix" posts (akin to TikTok's "Duet" feature), and promoting full-screen vertical video above photos, Instagram is attempting to turn its main app experience into something similar to that of the Chinese-owned upstart. In a widely shared story, Kardashian clan member and social media star, Kylie Jenner, called on the service to "make Instagram Instagram again." She added: "Stop trying to be TikTok, I just want to see cute photos of my friends."&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+	&lt;a class="slashpop" href="http://twitter.com/home?status='Stop+Trying+To+Be+TikTok'%3A+User+Backlash+Over+Instagram+Changes%3A+https%3A%2F%2Fbit.ly%2F3S78JzF"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+	&lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Ftech.slashdot.org%2Fstory%2F22%2F07%2F27%2F2140224%2Fstop-trying-to-be-tiktok-user-backlash-over-instagram-changes%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+&lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://tech.slashdot.org/story/22/07/27/2140224/stop-trying-to-be-tiktok-user-backlash-over-instagram-changes?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793194&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+<dc:creator>BeauHD</dc:creator>
+<dc:date>2022-07-28T00:45:00+00:00</dc:date>
+<dc:subject>facebook</dc:subject>
+<slash:department>good-artists-copy-great-artists-steal</slash:department>
+<slash:section>technology</slash:section>
+<slash:comments>28</slash:comments>
+<slash:hit_parade>28,27,24,20,3,3,1</slash:hit_parade>
+</item>
+<item rdf:about="https://hardware.slashdot.org/story/22/07/27/2129259/siemens-new-home-ev-charger-adapter-ends-need-for-electrical-panel-upgrades?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+  <title>Siemens' New Home EV Charger Adapter Ends Need For Electrical Panel Upgrades</title>
+  <link>https://hardware.slashdot.org/story/22/07/27/2129259/siemens-new-home-ev-charger-adapter-ends-need-for-electrical-panel-upgrades?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+  <description>An anonymous reader quotes a report from Electrek: Siemens and Philadelphia-based ConnectDER have partnered to debut a groundbreaking simple home EV charger connector. Previously, homeowners who wanted to install EV chargers might have had to spend thousands of dollars to modify their home's electrical panel. This new proprietary plug-in adapter will eliminate that cost and allow installation and connection in minutes. ConnectDER makes meter collars that are installed between the home's meter and the meter socket to create a single plug-and-play access point for distributed energy resources (DER) installation. In other words, the collars easily add new electrical service capacity for things like solar and energy storage. Now ConnectDER will exclusively manufacture and supply a proprietary plug-in EV charger adapter to Siemens.
+  
+  The new adapter will enable electric car owners to charge their EVs by connecting chargers directly through the meter socket, which is on every home. It provides more useable capacity by monitoring total load and controlling the EV circuit to ensure the total capacity rating is within the limit. Bypassing the electrical panel reduces the EV charger installation cost by around 60 to 80% because electrical panel upgrades aren't needed. [...] Nearly half of US home electrical panels previously would have needed upgrades to allow the installation of a typical Level 2 charger, usually a 7-11kW device requiring 40-60 Amps on a 240V line. A Siemens spokesperson said that the company is still finalizing pricing, but "it will be a fraction of the cost of a service panel upgrade or other modifications often needed to make for a charger. Additionally, in some cases, the cost may be fully borne by utility programs."
+  
+  The adapters themselves are expected to be available by first quarter 2023.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+  &lt;a class="slashpop" href="http://twitter.com/home?status=Siemens'+New+Home+EV+Charger+Adapter+Ends+Need+For+Electrical+Panel+Upgrades%3A+https%3A%2F%2Fbit.ly%2F3J969VV"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+  &lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fhardware.slashdot.org%2Fstory%2F22%2F07%2F27%2F2129259%2Fsiemens-new-home-ev-charger-adapter-ends-need-for-electrical-panel-upgrades%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+  &lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://hardware.slashdot.org/story/22/07/27/2129259/siemens-new-home-ev-charger-adapter-ends-need-for-electrical-panel-upgrades?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793166&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+  <dc:creator>BeauHD</dc:creator>
+  <dc:date>2022-07-28T00:02:00+00:00</dc:date>
+  <dc:subject>power</dc:subject>
+  <slash:department>cost-saving</slash:department>
+  <slash:section>hardware</slash:section>
+  <slash:comments>85</slash:comments>
+  <slash:hit_parade>85,85,78,73,17,5,2</slash:hit_parade>
+</item>
+<item rdf:about="https://meta.slashdot.org/story/22/07/27/2259221/metas-revenue-shrank-for-the-first-time-in-its-history?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+  <title>Meta's Revenue Shrank For the First Time In Its History</title>
+  <link>https://meta.slashdot.org/story/22/07/27/2259221/metas-revenue-shrank-for-the-first-time-in-its-history?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+  <description>Facebook parent company Meta has just reported its earnings for the second quarter of 2022, and it was another quarter of shrinking profits. Engadget reports: Total revenue of $28.8 billion was only down one percent compared to Q2 one year ago, but net income dropped 36 percent to $6.7 billion. Making almost $7 billion in profit is not a bad quarter for anyone, but the size of the decline compared to a year ago is pretty significant. And, according to the Wall Street Journal, this is the first-ever drop in revenue for Meta / Facebook -- so even though we're only talking one percent, it's still noteworthy.
+  
+  Revenue from advertising and Meta's "family of apps" was essentially flat year-over-year, and Reality Labs (home to hardware like the Meta Quest and other metaverse-related initiatives) actually grew 48 percent year-over-year to $452 million. But Reality Labs accounted for a $2.8 billion loss this quarter, a 15 percent larger loss than Q2 one year ago. At this rate, it seems likely that Reality Labs will lose Meta more than the $10 billion it cost the company in 2021. Indeed, the company said it expects Reality Labs revenue to be lower in the third quarter. [...] In June, Meta said that it had 2.88 billion daily active users in its family of apps (which includes Facebook, Instagram, WhatsApp and Messenger) and 3.65 billion monthly active users, both of which are up four percent compared to a year ago. Facebook-specific growth was smaller, though -- average daily and monthly users only increased three percent and one percent, respectively. Further reading: FTC Files To Block Meta's Virtual Reality Deal&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+  &lt;a class="slashpop" href="http://twitter.com/home?status=Meta's+Revenue+Shrank+For+the+First+Time+In+Its+History%3A+https%3A%2F%2Fbit.ly%2F3b943bR"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+  &lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fmeta.slashdot.org%2Fstory%2F22%2F07%2F27%2F2259221%2Fmetas-revenue-shrank-for-the-first-time-in-its-history%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+  &lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://meta.slashdot.org/story/22/07/27/2259221/metas-revenue-shrank-for-the-first-time-in-its-history?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793318&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+  <dc:creator>BeauHD</dc:creator>
+  <dc:date>2022-07-27T23:20:00+00:00</dc:date>
+  <dc:subject>business</dc:subject>
+  <slash:department>brace-yourselves</slash:department>
+  <slash:section>meta</slash:section>
+  <slash:comments>26</slash:comments>
+  <slash:hit_parade>26,26,21,17,5,1,1</slash:hit_parade>
+</item>
+<item rdf:about="https://yro.slashdot.org/story/22/07/27/2116200/googles-nest-will-provide-data-to-police-without-a-warrant?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+  <title>Google's Nest Will Provide Data to Police Without a Warrant</title>
+  <link>https://yro.slashdot.org/story/22/07/27/2116200/googles-nest-will-provide-data-to-police-without-a-warrant?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+  <description>As reported by CNET, Google will allow law enforcement to access data from its Nest products -- or theoretically any other data you store with Google -- without a warrant. PetaPixel reports: "If we reasonably believe that we can prevent someone from dying or from suffering serious physical harm, we may provide information to a government agency -- for example, in the case of bomb threats, school shootings, kidnappings, suicide prevention, and missing person cases," reads Google's TOS page on government requests for user information. "We still consider these requests in light of applicable laws and our policies."
+  
+  An unnamed Nest spokesperson did tell CNET that the company tries to give its users notice when it provides their data under these circumstances. Google "reserves the right" to make emergency disclosures to law enforcement even when there is no legal requirement to do so. "A provider like Google may disclose information to law enforcement without a subpoena or a warrant 'if the provider, in good faith, believes that an emergency involving danger of death or serious physical injury to any person requires disclosure without delay of communications relating to the emergency,'" a Nest spokesperson tells CNET.
+  
+  While Amazon and Google have both said they would hand over a user's data to law enforcement without a warrant, Arlo, Apple, Wyze, and Anker, owner of Eufy, all confirmed to CNET that they won't give authorities access to a user's smart home camera's footage unless they're shown a warrant or court order. These companies would be legally bound to provide data to the authorities if they were shown a legal document. But, unlike Google and Amazon, they will not otherwise share camera footage with law enforcement, even if they had an emergency request for data. Apple's default setting for video cameras connected via Homekit is end-to-end encryption which means the company is unable to share user video at all. In an updated statement, a Google spokesperson clarified that they have never sent Nest data to authorities, "but it's important that we reserve the right to do so."
+  
+  They added: "To reiterate, and as we've specified in our privacy commitments, we will only share video footage and audio recordings with third-party apps and services that work with our devices if you or a member of your home explicitly gives us permission, and we'll only ask for this permission in order to provide a helpful experience from an approved partner (such as a home security service provider)."&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+  &lt;a class="slashpop" href="http://twitter.com/home?status=Google's+Nest+Will+Provide+Data+to+Police+Without+a+Warrant%3A+https%3A%2F%2Fbit.ly%2F3oxSHBl"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+  &lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fyro.slashdot.org%2Fstory%2F22%2F07%2F27%2F2116200%2Fgoogles-nest-will-provide-data-to-police-without-a-warrant%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+  &lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://yro.slashdot.org/story/22/07/27/2116200/googles-nest-will-provide-data-to-police-without-a-warrant?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793154&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+  <dc:creator>BeauHD</dc:creator>
+  <dc:date>2022-07-27T22:40:00+00:00</dc:date>
+  <dc:subject>privacy</dc:subject>
+  <slash:department>emergency-disclosures</slash:department>
+  <slash:section>yro</slash:section>
+  <slash:comments>40</slash:comments>
+  <slash:hit_parade>40,38,31,27,9,3,2</slash:hit_parade>
+</item>
+<item rdf:about="https://developers.slashdot.org/story/22/07/27/2110246/protestware-on-the-rise-why-developers-are-sabotaging-their-own-code?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+  <title>Protestware On the Rise: Why Developers Are Sabotaging Their Own Code</title>
+  <link>https://developers.slashdot.org/story/22/07/27/2110246/protestware-on-the-rise-why-developers-are-sabotaging-their-own-code?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+  <description>"If combating attacks and hijackings of legitimate software on open source registries like npm weren't challenging enough, app makers are increasingly experiencing the consequences of software self-sabotage," writes security researcher and reporter Ax Sharma via TechCrunch. "A developer can, on a whim, change their mind and do whatever they want with their open source code that, most of the time anyway, comes 'as is' without any warranty. Or, as seen by a growing trend this year, developers deliberately sabotaging their own software libraries as a means of protest -- turning software into 'protestware.'"
+  
+  One of the many examples Sharma mentions happened during the first week of 2022, when thousands of applications that rely on the heavily used npm projects colors and faker broke and began printing gibberish text on users' screens. "It wasn't a malicious actor hijacking and altering these legitimate libraries," writes Sharma. "It turned out the projects' developer Mark Squires had intentionally corrupted his own work to send a message of protest to big corporations..." An anonymous reader shares an excerpt from his report: Open source developers are discovering new and creative avenues that no longer limit them to implementing new features for their projects, but to actively express their views on larger social matters by modifying their projects for a cause. And, unlike proprietary code that has to function in line with a paying customer's expectations, most open source licenses are quite permissive -- both for the consumer and the developer -- offering their code with licenses that offer no guarantees as to what a developer is not supposed to and will never do with their code, making protestware a gray area for defenders. In fact, as a security researcher at Sonatype, I observed how protestware posed a challenge for us in the early stages and how we would tweak our automated malware detection algorithms to now catch self-sabotages with projects like colors and faker. Traditionally, the system was designed to spot typosquatting malware uploaded to open source repositories, but cases like malicious hijacks or developers modifying their own libraries without warning required a deeper understanding of the intricacies of how protestware works.
+  
+  The theme has also put major open source registries like npm -- owned by GitHub, a Microsoft subsidiary -- at a crossroads when having to deal with these edge cases. Socket's founder Feross Aboukhadijeh told TechCrunch that registries like GitHub are in a difficult position. "On the one hand, they want to support maintainers' right to freedom of expression and the ability to use their platform to support the causes they believe in. But on the other hand, GitHub has a responsibility to npm users to ensure that malicious code isn't served from npm servers. It's sometimes a difficult balancing act," said Aboukhadijeh. A simple solution to ensuring you are getting only vetted versions of a component in your build is to pin your npm dependency versions. That way, even if future versions of a project are sabotaged or hijacked, your build continues to use the "pinned" version as opposed to fetching the latest, tainted one. But this may not always be an effective strategy for all ecosystems, like PyPI, where existing versions of a component can be republished -- as we saw in the case of the hijacking of the ctx PyPI project.
+  
+  "The conversation around 'protestware' is really a conversation about software supply chain security. You can't trust what you can't verify," Dan Lorenc, the co-founder and chief executive at Chainguard, a startup that specializes in software supply chain security, told TechCrunch. Lorenc's advice against preventing protestware is to follow good open source security hygiene and best practices that can help developers develop protestware more easily and early on. "Knowing and understanding your dependencies, conducting regular scans and audits of open source code you are using in your environments are a start." But Lorenc warns the debate about protestware could draw in copycats who would contribute to the problem and detract open source software defenders from focusing on tackling what's truly important -- keeping malicious actors at bay. And with protestware there remain unknown unknowns. What issue is too small -- or too big -- for protestware? While no one can practically dictate what an open source developer can do with their code -- it is a power developers have always possessed, but are now just beginning to harness.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+  &lt;a class="slashpop" href="http://twitter.com/home?status=Protestware+On+the+Rise%3A+Why+Developers+Are+Sabotaging+Their+Own+Code%3A+https%3A%2F%2Fbit.ly%2F3oxNCJh"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+  &lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fdevelopers.slashdot.org%2Fstory%2F22%2F07%2F27%2F2110246%2Fprotestware-on-the-rise-why-developers-are-sabotaging-their-own-code%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+  &lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://developers.slashdot.org/story/22/07/27/2110246/protestware-on-the-rise-why-developers-are-sabotaging-their-own-code?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21793132&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+  <dc:creator>BeauHD</dc:creator>
+  <dc:date>2022-07-27T22:02:00+00:00</dc:date>
+  <dc:subject>programming</dc:subject>
+  <slash:department>self-sabotage</slash:department>
+  <slash:section>developers</slash:section>
+  <slash:comments>97</slash:comments>
+  <slash:hit_parade>97,96,82,74,16,11,5</slash:hit_parade>
+</item>
+<item rdf:about="https://news.slashdot.org/story/22/07/27/1911252/james-lovelock-creator-of-gaia-hypothesis-dies-on-103rd-birthday?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+  <title>James Lovelock, Creator of Gaia Hypothesis, Dies on 103rd Birthday</title>
+  <link>https://news.slashdot.org/story/22/07/27/1911252/james-lovelock-creator-of-gaia-hypothesis-dies-on-103rd-birthday?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+  <description>James Lovelock, the creator of the Gaia hypothesis, has died on his 103rd birthday. The climate scientist died at home on Tuesday surrounded by loved ones, his family said. From a report: Lovelock, who was one of the UK's most respected independent scientists, had been in good health until six months ago, when he had a bad fall. Known as something of a maverick, he had been dispensing predictions from his one-man laboratory since the mid-1960s, and in his old age he continued to work. His Gaia hypothesis posits that life on Earth is a self-regulating community of organisms interacting with each other and their surroundings. He said two years ago that the biosphere was in the last 1% of its life. [...] Lovelock spent his life advocating for climate measures, starting decades before many others started to take notice of the crisis. By the time he died he did not believe there was hope of avoiding some of the worst impacts of the climate crisis.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+  &lt;a class="slashpop" href="http://twitter.com/home?status=James+Lovelock%2C+Creator+of+Gaia+Hypothesis%2C+Dies+on+103rd+Birthday%3A+https%3A%2F%2Fbit.ly%2F3S62CM5"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+  &lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fnews.slashdot.org%2Fstory%2F22%2F07%2F27%2F1911252%2Fjames-lovelock-creator-of-gaia-hypothesis-dies-on-103rd-birthday%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+  &lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://news.slashdot.org/story/22/07/27/1911252/james-lovelock-creator-of-gaia-hypothesis-dies-on-103rd-birthday?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21792886&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+  <dc:creator>msmash</dc:creator>
+  <dc:date>2022-07-27T21:22:00+00:00</dc:date>
+  <dc:subject>news</dc:subject>
+  <slash:department>RIP</slash:department>
+  <slash:section>news</slash:section>
+  <slash:comments>38</slash:comments>
+  <slash:hit_parade>38,33,25,20,6,1,0</slash:hit_parade>
+</item>
+<item rdf:about="https://tech.slashdot.org/story/22/07/27/175226/inside-tiktoks-attempts-to-downplay-the-china-association?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+  <title>Inside TikTok's Attempts To 'Downplay the China Association'</title>
+  <link>https://tech.slashdot.org/story/22/07/27/175226/inside-tiktoks-attempts-to-downplay-the-china-association?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+  <description>Leaked documents from within TikTok reveal how the company games out responses to tricky questions -- and highlight what the company thinks its biggest public perception problems are. Chief among them: China. From a report: The PR documents, which Gizmodo obtained from within the company, are titled "TikTok Master Messaging" and "TikTok Key Messages." Both are explanations of press talking points in English and include a version translated into a European language. The larger of the two, the 53-page TikTok Master Messaging document, outlines key messages the company wants to present to the public. The dossier's version history shows it was last updated in August 2021 but had been consistently altered since it was created in March 2020. 
+
+  Right near the top of the list? "Downplay the parent company ByteDance, downplay the China association, downplay AI." All three bullet points are the second, third and fourth lines of the document, second only to "Emphasise TikTok as a brand/platform." Further down, the company advises its employees to stress that, though young people love TikTok, "the app is only for users aged 13 and over." [...]The soundbites include: 
+  "There's a lot of misinformation about TikTok right now. The reality is that the TikTok app isn't even available in China." TikTok used this talking point when responding to the BBC.
+  "We have not and will not share user data with the Chinese government, and would not do so if asked." TikTok used this one in response to BuzzFeed News.
+  "We have a number of measures in place to significantly reduce access to user data, and we continue to build those out." TikTok published this talking point on its own blog.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+  &lt;a class="slashpop" href="http://twitter.com/home?status=Inside+TikTok's+Attempts+To+'Downplay+the+China+Association'%3A+https%3A%2F%2Fbit.ly%2F3vkv7Mp"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+  &lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Ftech.slashdot.org%2Fstory%2F22%2F07%2F27%2F175226%2Finside-tiktoks-attempts-to-downplay-the-china-association%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+  &lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://tech.slashdot.org/story/22/07/27/175226/inside-tiktoks-attempts-to-downplay-the-china-association?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21792482&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+  <dc:creator>msmash</dc:creator>
+  <dc:date>2022-07-27T20:45:00+00:00</dc:date>
+  <dc:subject>china</dc:subject>
+  <slash:department>closer-look</slash:department>
+  <slash:section>technology</slash:section>
+  <slash:comments>20</slash:comments>
+  <slash:hit_parade>20,20,19,17,6,2,0</slash:hit_parade>
+</item>
+<item rdf:about="https://tech.slashdot.org/story/22/07/27/1853224/google-delays-when-chrome-will-phase-out-third-party-cookies-to-2024?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+<title>Google Delays When Chrome Will Phase Out Third-Party Cookies To 2024</title>
+<link>https://tech.slashdot.org/story/22/07/27/1853224/google-delays-when-chrome-will-phase-out-third-party-cookies-to-2024?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+<description>Google was originally planning to get rid of third-party cookies in its browser by 2022, but that was later pushed back to 2023. That cookies deadline for Chrome is now being delayed to 2024. From a report: The Privacy Sandbox is Google's initiative to replace third-party cookies -- as well as cross-site tracking identifiers, fingerprinting, and other covert techniques -- once privacy-conscious alternatives are in place. Since then, Google has been working on new technologies for the past few years and more recently released trials in Chrome for developers to test. Citing "consistent feedback" from partners, Google is "expanding the testing windows for the Privacy Sandbox APIs before we disable third-party cookies in Chrome," with that phase out now set to begin in the second half of 2024.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+&lt;a class="slashpop" href="http://twitter.com/home?status=Google+Delays+When+Chrome+Will+Phase+Out+Third-Party+Cookies+To+2024%3A+https%3A%2F%2Fbit.ly%2F3zCNwX9"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+&lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Ftech.slashdot.org%2Fstory%2F22%2F07%2F27%2F1853224%2Fgoogle-delays-when-chrome-will-phase-out-third-party-cookies-to-2024%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+&lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://tech.slashdot.org/story/22/07/27/1853224/google-delays-when-chrome-will-phase-out-third-party-cookies-to-2024?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21792854&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+<dc:creator>msmash</dc:creator>
+<dc:date>2022-07-27T20:05:00+00:00</dc:date>
+<dc:subject>chrome</dc:subject>
+<slash:department>tough-luck</slash:department>
+<slash:section>technology</slash:section>
+<slash:comments>11</slash:comments>
+<slash:hit_parade>11,10,10,8,3,2,0</slash:hit_parade>
+</item>
+<item rdf:about="https://news.slashdot.org/story/22/07/27/1841224/senate-passes-280-billion-industrial-policy-bill-to-counter-china?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+  <title>Senate Passes $280 Billion Industrial Policy Bill To Counter China</title>
+  <link>https://news.slashdot.org/story/22/07/27/1841224/senate-passes-280-billion-industrial-policy-bill-to-counter-china?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+  <description>The Senate on Wednesday passed an expansive $280 billion bill aimed at building up America's manufacturing and technological edge to counter China, embracing in an overwhelming bipartisan vote the most significant government intervention in industrial policy in decades. From a report: The legislation reflected a remarkable and rare consensus in an otherwise polarized Congress in favor of forging a long-term strategy to address the nation's intensifying geopolitical rivalry with Beijing, centered around investing federal money into cutting-edge technologies and innovations to bolster the nation's industrial, technological and military strength. 
+
+  It passed on a lopsided bipartisan vote of 64 to 33, with 17 Republicans voting in support. The margin illustrated how commercial and military competition with Beijing -- as well as the promise of thousands of new American jobs -- has dramatically shifted longstanding party orthodoxies, generating agreement among Republicans who once had eschewed government intervention in the markets and Democrats who had resisted showering big companies with federal largess. "No country's government -- even a strong country like ours -- can afford to sit on the sidelines," Senator Chuck Schumer, Democrat of New York and the majority leader who helped to spearhead the measure, said in an interview. "I think it's a sea change that will stay."&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+  &lt;a class="slashpop" href="http://twitter.com/home?status=Senate+Passes+%24280+Billion+Industrial+Policy+Bill+To+Counter+China%3A+https%3A%2F%2Fbit.ly%2F3z4Vffa"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+  &lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fnews.slashdot.org%2Fstory%2F22%2F07%2F27%2F1841224%2Fsenate-passes-280-billion-industrial-policy-bill-to-counter-china%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+  &lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://news.slashdot.org/story/22/07/27/1841224/senate-passes-280-billion-industrial-policy-bill-to-counter-china?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21792818&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+  <dc:creator>msmash</dc:creator>
+  <dc:date>2022-07-27T19:20:00+00:00</dc:date>
+  <dc:subject>usa</dc:subject>
+  <slash:department>moving-forward</slash:department>
+  <slash:section>news</slash:section>
+  <slash:comments>54</slash:comments>
+  <slash:hit_parade>54,54,45,37,6,3,3</slash:hit_parade>
+</item>
+<item rdf:about="https://news.slashdot.org/story/22/07/27/1831234/fed-raises-rates-by-75-basis-points-to-clamp-down-on-inflation?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed">
+  <title>Fed Raises Rates by 75 Basis Points To Clamp Down on Inflation</title>
+  <link>https://news.slashdot.org/story/22/07/27/1831234/fed-raises-rates-by-75-basis-points-to-clamp-down-on-inflation?utm_source=rss1.0mainlinkanon&amp;utm_medium=feed</link>
+  <description>Federal Reserve officials raised interest rates by 75 basis points for the second straight month, delivering the most aggressive tightening in more than a generation to curb surging inflation -- but risking a sharp blow to the economy. From a report: Policy makers, facing the hottest cost pressures in 40 years, lifted the target for the federal funds rate on Wednesday to a range of 2.25% to 2.5%. That takes the cumulative June-July increase to 150 basis points -- the steepest since the price-fighting era of Paul Volcker in the early 1980s. The Federal Open Market Committee "is strongly committed to returning inflation to its 2% objective," it said in a statement released in Washington, repeating previous language that it's "highly attentive to inflation risks." The FOMC reiterated it "anticipates that ongoing increases in the target range will be appropriate," and that it would adjust policy if risks emerge that could impede attaining its goals.&lt;p&gt;&lt;div class="share_submission" style="position:relative;"&gt;
+  &lt;a class="slashpop" href="http://twitter.com/home?status=Fed+Raises+Rates+by+75+Basis+Points+To+Clamp+Down+on+Inflation%3A+https%3A%2F%2Fbit.ly%2F3oAk9yA"&gt;&lt;img src="https://a.fsdn.com/sd/twitter_icon_large.png"&gt;&lt;/a&gt;
+  &lt;a class="slashpop" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fnews.slashdot.org%2Fstory%2F22%2F07%2F27%2F1831234%2Ffed-raises-rates-by-75-basis-points-to-clamp-down-on-inflation%3Futm_source%3Dslashdot%26utm_medium%3Dfacebook"&gt;&lt;img src="https://a.fsdn.com/sd/facebook_icon_large.png"&gt;&lt;/a&gt;
+
+
+
+  &lt;/div&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://news.slashdot.org/story/22/07/27/1831234/fed-raises-rates-by-75-basis-points-to-clamp-down-on-inflation?utm_source=rss1.0moreanon&amp;amp;utm_medium=feed"&gt;Read more of this story&lt;/a&gt; at Slashdot.&lt;/p&gt;&lt;iframe src="https://slashdot.org/slashdot-it.pl?op=discuss&amp;amp;id=21792776&amp;amp;smallembed=1" style="height: 300px; width: 100%; border: none;"&gt;&lt;/iframe&gt;</description>
+  <dc:creator>msmash</dc:creator>
+  <dc:date>2022-07-27T18:32:00+00:00</dc:date>
+  <dc:subject>usa</dc:subject>
+  <slash:department>tussle-continues</slash:department>
+  <slash:section>news</slash:section>
+  <slash:comments>117</slash:comments>
+  <slash:hit_parade>117,114,100,85,26,9,5</slash:hit_parade>
+</item>
+<textinput rdf:about="https://slashdot.org/search.pl">
+  <title>Search Slashdot</title>
+  <description>Search Slashdot stories</description>
+  <name>query</name>
+  <link>https://slashdot.org/search.pl</link>
+</textinput>
+</rdf:RDF>

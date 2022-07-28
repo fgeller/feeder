@@ -9,6 +9,25 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestUnmarshal_RDF(t *testing.T) {
+	byt, err := os.ReadFile("test-data/slashdotMain.xml")
+	require.Nil(t, err)
+
+	f, err := unmarshal(byt)
+	require.Nil(t, err)
+
+	require.Equal(t, "Slashdot", f.Title)
+	require.Equal(t, "https://slashdot.org/", f.Link)
+	require.Len(t, f.Entries, 15)
+	require.Equal(t, time.Date(2022, 7, 28, 10, 52, 17, 0, time.UTC).Unix(), f.Updated.Unix())
+
+	fst := f.Entries[0]
+	require.Equal(t, "Charter Told To Pay $7.3 Billion In Damages After Cable Installer Murders Grandmother", fst.Title)
+	require.Equal(t, "https://yro.slashdot.org/story/22/07/27/2124200/charter-told-to-pay-73-billion-in-damages-after-cable-installer-murders-grandmother?utm_source=rss1.0mainlinkanon&utm_medium=feed", fst.Link)
+	require.Equal(t, "https://yro.slashdot.org/story/22/07/27/2124200/charter-told-to-pay-73-billion-in-damages-after-cable-installer-murders-grandmother?utm_source=rss1.0mainlinkanon&utm_medium=feed", fst.ID)
+	require.Equal(t, time.Date(2022, 7, 28, 10, 0, 0, 0, time.UTC).Unix(), fst.Updated.Unix())
+}
+
 func TestTakeOnRules(t *testing.T) {
 	byt, err := os.ReadFile("test-data/take-on-rules.atom")
 	require.Nil(t, err)
