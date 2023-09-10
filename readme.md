@@ -1,4 +1,4 @@
-# feeder 📫 
+# feeder 📫 [![Continuous Integration](https://github.com/fgeller/feeder/actions/workflows/go.yml/badge.svg)](https://github.com/fgeller/feeder/actions/workflows/go.yml)
 
 Aggregates news feed updates and sends them to your email inbox.
 
