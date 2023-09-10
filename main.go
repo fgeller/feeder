@@ -28,7 +28,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const AppVersion = "2.0.0"
+const AppVersion = "2.2.0"
 
 // UserAgent to be used in http requests
 var UserAgent = fmt.Sprintf("com.github.fgeller.feeder:%s", AppVersion)
