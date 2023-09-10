@@ -16,6 +16,7 @@ import (
 	"os/user"
 	"path/filepath"
 	"regexp"
+	"runtime/debug"
 	"sort"
 	"strings"
 	"time"
@@ -28,11 +29,6 @@ import (
 )
 
 const AppVersion = "2.0.0"
-
-var (
-	buildVersion = ""
-	buildTime    = ""
-)
 
 // UserAgent to be used in http requests
 var UserAgent = fmt.Sprintf("com.github.fgeller.feeder:%s", AppVersion)
@@ -450,6 +446,7 @@ type FeederFlags struct {
 	Config    string
 	Subscribe string
 	Version   bool
+	BuildInfo bool
 }
 
 func readFlags() (*FeederFlags, error) {
@@ -460,6 +457,7 @@ func readFlags() (*FeederFlags, error) {
 	flags.StringVar(&flg.Config, "config", "", "Path to config file (default $XDG_CONFIG_HOME/feeder/config.yml)")
 	flags.StringVar(&flg.Subscribe, "subscribe", "", "URL to feed to subscribe to")
 	flags.BoolVar(&flg.Version, "version", false, "Print version information")
+	flags.BoolVar(&flg.BuildInfo, "build-info", false, "Print build information")
 	flags.Usage = func() {
 		fmt.Fprintf(flags.Output(), "Usage of feeder:\n\n")
 		flags.PrintDefaults()
@@ -478,6 +476,10 @@ at the given URL and persists the augmented feeds config.
 	}
 
 	if flg.Version {
+		return flg, nil
+	}
+
+	if flg.BuildInfo {
 		return flg, nil
 	}
 
@@ -1178,23 +1180,17 @@ func resolveRelativeURLs(fs []*Feed) {
 }
 
 func printVersion() {
-	v := fmt.Sprintf("feeder version %s", AppVersion)
-
-	if buildVersion != "" || buildTime != "" {
-		v += " ("
-		if buildVersion != "" {
-			v += buildVersion
-		}
-
-		if buildTime != "" {
-			if buildVersion != "" {
-				v += " @ "
-			}
-			v += buildTime
-		}
-		v += ")"
-	}
+	v := fmt.Sprintf("feeder %s", AppVersion)
 	fmt.Println(v)
+}
+
+func printBuildInfo() {
+	bi, ok := debug.ReadBuildInfo()
+	if ok {
+		fmt.Printf("%+v\n", bi)
+	} else {
+		fmt.Println("failed to read build info")
+	}
 }
 
 func main() {
@@ -1207,6 +1203,11 @@ func main() {
 
 	if flg.Version {
 		printVersion()
+		return
+	}
+
+	if flg.BuildInfo {
+		printBuildInfo()
 		return
 	}
 
