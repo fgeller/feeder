@@ -29,8 +29,10 @@ import (
 
 const AppVersion = "2.0.0"
 
-var buildVersion = ""
-var buildTime = ""
+var (
+	buildVersion = ""
+	buildTime    = ""
+)
 
 // UserAgent to be used in http requests
 var UserAgent = fmt.Sprintf("com.github.fgeller.feeder:%s", AppVersion)
@@ -96,6 +98,8 @@ func (i *RSSItem) Entry() *FeedEntry {
 }
 
 func parseTime(raw string) (t time.Time, err error) {
+	raw = strings.TrimSpace(raw)
+
 	t, err = time.Parse(time.RFC1123Z, raw)
 	if err == nil {
 		return t, nil
@@ -147,7 +151,7 @@ func (f *RSSFeed) Feed() (*Feed, error) {
 		return nil, fmt.Errorf("failed to convert rss feed %#v, missing link", f.Title)
 	}
 
-	var id, lk = f.Links[0], f.Links[0] // 🤨
+	id, lk := f.Links[0], f.Links[0] // 🤨
 
 	for _, l := range f.Links {
 		if l.Type == "text/html" || l.Rel == "alternate" {
@@ -301,6 +305,7 @@ func (l *Link) UnmarshalXML(d *xml.Decoder, el xml.StartElement) error {
 		return err
 	}
 
+	s = strings.TrimSpace(s)
 	_, err = url.ParseRequestURI(s)
 	if err == nil {
 		l.HRef = s
@@ -755,7 +760,7 @@ func readTimestamps(fn string) (map[string]time.Time, error) {
 	var bt []byte
 	var fh *os.File
 
-	fh, err = os.OpenFile(fn, os.O_CREATE, 0677)
+	fh, err = os.OpenFile(fn, os.O_CREATE, 0o677)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open timestamps file %#v err=%w", fn, err)
 	}
@@ -786,7 +791,7 @@ func writeTimestamps(fn string, ts map[string]time.Time) error {
 		return fmt.Errorf("failed to marshal timestamps err=%w", err)
 	}
 
-	err = os.WriteFile(fn, bt, 0677)
+	err = os.WriteFile(fn, bt, 0o677)
 	if err != nil {
 		return fmt.Errorf("failed to write timestamps file err=%w", err)
 	}
@@ -1101,7 +1106,7 @@ func subscribe(cfg *Config, fu string) {
 		log.Fatalf("failed to marshal feeds err=%s", err)
 	}
 
-	err = os.WriteFile(cfg.FeedsFile, bt, 0677)
+	err = os.WriteFile(cfg.FeedsFile, bt, 0o677)
 	if err != nil {
 		log.Fatalf("failed to write timestamps file err=%s", err)
 	}

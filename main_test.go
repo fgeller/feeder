@@ -38,6 +38,16 @@ func TestTakeOnRules(t *testing.T) {
 	require.Equal(t, "https://takeonrules.com/", f.Link)
 }
 
+func TestGarrit(t *testing.T) {
+	byt, err := os.ReadFile("test-data/garrit.xml")
+	require.Nil(t, err)
+
+	f, err := unmarshal(byt)
+	require.Nil(t, err)
+
+	require.Equal(t, "https://garrit.xyz", f.Link)
+}
+
 func TestReddit(t *testing.T) {
 	byt, err := os.ReadFile("test-data/rprogramming.atom")
 	require.Nil(t, err)
