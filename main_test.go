@@ -317,3 +317,12 @@ func TestPickNewData(t *testing.T) {
 		require.Equal(t, tc.expected, actual, tn)
 	}
 }
+
+func TestFeedInfo(t *testing.T) {
+	byt, err := os.ReadFile("test-data/sample_head.html")
+	require.Nil(t, err)
+
+	gotTitle, gotLink := findFeedInfo(byt)
+	require.Equal(t, "Sample Title", gotTitle)
+	require.Equal(t, "https://example.com/atom.xml", gotLink)
+}

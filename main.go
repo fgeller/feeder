@@ -1019,7 +1019,7 @@ func findFeedInfo(byt []byte) (feedTitle, link string) {
 	var f func(*html.Node)
 	f = func(n *html.Node) {
 		if feedTitle == "" && n.Type == html.ElementNode && n.Data == "title" && n.FirstChild != nil {
-			feedTitle = n.FirstChild.Data
+			feedTitle = strings.TrimSpace(n.FirstChild.Data)
 			log.Printf("found title: %#v", feedTitle)
 		}
 		if n.Type == html.ElementNode && n.Data == "link" {
@@ -1031,7 +1031,7 @@ func findFeedInfo(byt []byte) (feedTitle, link string) {
 				log.Printf("found alternate title=%s type=%s href=%s", title, typ, href)
 				link = href
 				if feedTitle == "" {
-					feedTitle = title
+					feedTitle = strings.TrimSpace(title)
 				}
 			}
 		}
