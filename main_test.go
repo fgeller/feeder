@@ -326,3 +326,20 @@ func TestFeedInfo(t *testing.T) {
 	require.Equal(t, "Sample Title", gotTitle)
 	require.Equal(t, "https://example.com/atom.xml", gotLink)
 }
+
+func TestPercentEncoding(t *testing.T) {
+	t.Parallel()
+
+	byt, err := os.ReadFile("test-data/kottke-entry-encoding.xml")
+	require.Nil(t, err)
+
+	gotFeed, err := unmarshal(byt)
+	require.Nil(t, err)
+
+	require.Len(t, gotFeed.Entries, 1)
+	gotEntry := gotFeed.Entries[0]
+	wantTitle := `Pedro Pascal responding to transphobia on social media: “I can’t think of...`
+	require.Equal(t, wantTitle, string(gotEntry.Title))
+	wantContent := `<a href="https://www.capitalfm.com/news/pedro-pascal-trans-instagram-sister-lux/">Pedro Pascal responding to transphobia on social media</a>: “I can’t think of anything more vile and small and pathetic than terrorizing the smallest, most vulnerable community of people who want nothing from you, except the right to exist.”`
+	require.Equal(t, wantContent, string(gotEntry.Content))
+}

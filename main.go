@@ -183,7 +183,7 @@ func (f *RSSFeed) Feed() (*Feed, error) {
 		}
 		cf.Entries = append(cf.Entries, e.Entry())
 	}
-	return cf, nil
+	return canonicalize(cf), nil
 }
 
 type RDFFeed struct {
@@ -205,7 +205,7 @@ func (f *RDFFeed) Feed() (*Feed, error) {
 		cf.Entries = append(cf.Entries, i.Entry())
 	}
 
-	return cf, nil
+	return canonicalize(cf), nil
 }
 
 type RDFChannel struct {
@@ -259,10 +259,11 @@ func (f *AtomFeed) Feed() (*Feed, error) {
 		if e.Content == "" && e.MediaGroup != nil {
 			e.Content = e.MediaGroup.HTML()
 		}
+
 		cf.Entries = append(cf.Entries, e.Entry())
 	}
 
-	return cf, nil
+	return canonicalize(cf), nil
 }
 
 type xmlTime struct {
@@ -399,6 +400,25 @@ type MediaStarRating struct {
 
 type MediaStatistics struct {
 	Views int64 `xml:"views,attr"`
+}
+
+func canonicalize(feed *Feed) *Feed {
+	processString := func(s string) string {
+		return strings.TrimSpace(html.UnescapeString(s))
+	}
+
+	result := *feed
+	result.Title = processString(feed.Title)
+	newEntries := make([]*FeedEntry, 0, len(feed.Entries))
+	for _, entry := range feed.Entries {
+		newEntry := *entry
+		newEntry.Title = processString(entry.Title)
+		newEntry.Content = template.HTML(processString(string(entry.Content)))
+		newEntries = append(newEntries, &newEntry)
+	}
+	result.Entries = newEntries
+
+	return &result
 }
 
 func unmarshal(byt []byte) (*Feed, error) {
