@@ -327,7 +327,7 @@ func TestFeedInfo(t *testing.T) {
 	require.Equal(t, "https://example.com/atom.xml", gotLink)
 }
 
-func TestPercentEncoding(t *testing.T) {
+func TestHTMLEntities(t *testing.T) {
 	t.Parallel()
 
 	byt, err := os.ReadFile("test-data/kottke-entry-encoding.xml")
