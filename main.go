@@ -487,7 +487,7 @@ the latest entries via email. If the subscribe flag is provided,
 instead of downloading feeds, feeder tries to subscribe to the feed 
 at the given URL and persists the augmented feeds config.
 `
-		fmt.Fprintf(flags.Output(), help)
+		fmt.Fprint(flags.Output(), help)
 	}
 
 	err = flags.Parse(os.Args[1:])
