@@ -548,6 +548,7 @@ type Config struct {
 }
 
 type ConfigEmail struct {
+	To   string     `yaml:"to"`
 	From string     `yaml:"from"`
 	SMTP ConfigSMTP `yaml:"smtp"`
 }
@@ -600,6 +601,11 @@ func readConfig(fp string) (*Config, error) {
 
 	if cf.Email.From == "" {
 		return nil, fmt.Errorf("config is missing email.from")
+	}
+
+	// default to field to from field
+	if cf.Email.To == "" {
+		cf.Email.To = cf.Email.From
 	}
 
 	if cf.Email.SMTP.Host == "" {
@@ -670,7 +676,7 @@ func failOnErr(cfg *Config, err error) {
 func sendEmail(cfg ConfigEmail, body string) error {
 	m := gomail.NewMessage()
 	m.SetHeader("From", cfg.From)
-	m.SetHeader("To", cfg.From)
+	m.SetHeader("To", cfg.To)
 	m.SetHeader("Subject", fmt.Sprintf("feeder update: %s", time.Now().Format("2006-01-02 15:04")))
 	m.SetBody("text/html", body)
 
@@ -1173,7 +1179,7 @@ func feed(cfg *Config) {
 
 	err = sendEmail(cfg.Email, emailBody)
 	failOnErr(cfg, err)
-	log.Printf("sent email\n")
+	log.Printf("sent email to %#v\n", cfg.Email.To)
 
 	updateTimestamps(ts, nd)
 	err = writeTimestamps(cfg.TimestampFile, ts)
