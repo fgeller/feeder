@@ -113,6 +113,11 @@ func TestParseTime(t *testing.T) {
 			expected: time.Date(2021, 3, 1, 17, 50, 0, 0, time.UTC),
 			err:      nil,
 		},
+		{
+			raw:      "2025-09-03 21:48:36 -0700",
+			expected: time.Date(2025, 9, 4, 4, 48, 36, 0, time.UTC),
+			err:      nil,
+		},
 	}
 
 	for _, d := range data {
